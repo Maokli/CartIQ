@@ -1,0 +1,11 @@
+@mixin define-typography-tokens() {
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-md: 15px;
+  --font-size-lg: 21px;
+  --font-size-xl: 20px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+}

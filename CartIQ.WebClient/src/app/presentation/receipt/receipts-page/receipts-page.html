@@ -1,0 +1,29 @@
+<div class="receipts-page">
+
+  <div class="receipts-page__header">
+    <div>
+      <h1 class="receipts-page__title">Receipts</h1>
+      <p class="receipts-page__subtitle">Tracking your spending and nutrition</p>
+    </div>
+  </div>
+
+  <div class="receipts-page__stats">
+    <app-stat-card label="This month"       value="€312.40" sub="↓ 8% vs last month"    subAccent="green" />
+    <app-stat-card label="Receipts"         value="14"      sub="across 6 stores" />
+    <app-stat-card label="Avg. kcal / day"  value="1,840"   sub="from tracked items" />
+    <app-stat-card label="Top nutrient gap" value="Vitamin D" sub="low across 9 receipts" subAccent="amber" />
+  </div>
+
+  <app-table-container>
+    <span slot="title">All receipts</span>
+    <app-action-button
+      slot="actions"
+      label="Add receipt"
+      icon="add"
+      color="primary"
+      (action)="openAddReceiptModal()">
+    </app-action-button>
+    <app-receipts-list></app-receipts-list>
+  </app-table-container>
+
+</div>
