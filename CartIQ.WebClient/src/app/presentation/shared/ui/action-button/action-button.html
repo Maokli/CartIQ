@@ -1,0 +1,13 @@
+<button
+  mat-flat-button
+  [disabled]="disabled"
+  (click)="onClick()"
+  class="app-action-button"
+  [class.app-action-button--primary]="color === 'primary'"
+  [class.app-action-button--accent]="color === 'accent'"
+  [class.app-action-button--warn]="color === 'warn'">
+  @if (icon) {
+    <mat-icon class="app-action-button__icon">{{ icon }}</mat-icon>
+  }
+  {{ label }}
+</button>

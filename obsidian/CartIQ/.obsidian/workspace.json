@@ -26,22 +26,6 @@
             }
           }
         ]
-      },
-      {
-        "id": "05025250d476f2a7",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "80f4e65b5ec243ae",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
-            }
-          }
-        ]
       }
     ],
     "direction": "vertical"
@@ -206,8 +190,8 @@
   },
   "active": "d99481f9bd2bc81b",
   "lastOpenFiles": [
-    "Brainstorming V1.md",
     "Boards/Product Roadmap.md",
+    "Brainstorming V1.md",
     "Boards/Untitled",
     "Boards"
   ]

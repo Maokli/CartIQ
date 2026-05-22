@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CartIQ.Application/CartIQ.Application.csproj" />
+  <Project Path="CartIQ.Domain/CartIQ.Domain.csproj" />
+  <Project Path="CartIQ.Infrastructure/CartIQ.Infrastructure.csproj" />
+  <Project Path="CartIQ.WebApi\CartIQ.WebApi.csproj" />
+</Solution>
