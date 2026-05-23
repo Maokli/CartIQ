@@ -1,0 +1,6 @@
+/home/louay/Projects/Personal/CartIQ/API/CartIQ.Infrastructure/obj/Debug/net8.0/CartIQ.Infrastructure.csproj.AssemblyReference.cache
+/home/louay/Projects/Personal/CartIQ/API/CartIQ.Infrastructure/obj/Debug/net8.0/CartIQ.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/louay/Projects/Personal/CartIQ/API/CartIQ.Infrastructure/obj/Debug/net8.0/CartIQ.Infrastructure.AssemblyInfoInputs.cache
+/home/louay/Projects/Personal/CartIQ/API/CartIQ.Infrastructure/obj/Debug/net8.0/CartIQ.Infrastructure.AssemblyInfo.cs
+/home/louay/Projects/Personal/CartIQ/API/CartIQ.Infrastructure/obj/Debug/net8.0/CartIQ.Infrastructure.csproj.CoreCompileInputs.cache
+/home/louay/Projects/Personal/CartIQ/API/CartIQ.Infrastructure/obj/Debug/net8.0/CartIQ.Infrastructure.sourcelink.json

@@ -1,0 +1,253 @@
+{
+  "products": [
+    {
+      "barcode": "4008400401001",
+      "name": "Vollmilch 1L",
+      "brands": ["Weihenstephan"],
+      "categories": ["Dairy", "Milk"],
+      "foodGroup": "Dairy & Eggs",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100g",
+      "nutrition": {
+        "energyKcalPer100g": 61,
+        "energyKjPer100g": 255,
+        "fatPer100g": 3.5,
+        "saturatedFatPer100g": 2.1,
+        "carbohydratesPer100g": 4.8,
+        "sugarsPer100g": 4.8,
+        "proteinsPer100g": 3.3,
+        "saltPer100g": 0.1,
+        "sodiumPer100g": 0.04
+      }
+    },
+    {
+      "barcode": "4000417025005",
+      "name": "Butter 250g",
+      "brands": ["Kerrygold"],
+      "categories": ["Dairy", "Butter"],
+      "foodGroup": "Dairy & Eggs",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100g",
+      "nutrition": {
+        "energyKcalPer100g": 744,
+        "energyKjPer100g": 3051,
+        "fatPer100g": 82.0,
+        "saturatedFatPer100g": 54.0,
+        "carbohydratesPer100g": 0.6,
+        "sugarsPer100g": 0.6,
+        "proteinsPer100g": 0.6,
+        "saltPer100g": 0.05,
+        "sodiumPer100g": 0.02
+      }
+    },
+    {
+      "barcode": "4010355012345",
+      "name": "Apfel 1kg",
+      "brands": ["Bodenfrost"],
+      "categories": ["Fruits"],
+      "foodGroup": "Fruits & Vegetables",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100g",
+      "nutrition": {
+        "energyKcalPer100g": 52,
+        "energyKjPer100g": 218,
+        "fatPer100g": 0.2,
+        "saturatedFatPer100g": 0.0,
+        "carbohydratesPer100g": 13.8,
+        "sugarsPer100g": 10.4,
+        "proteinsPer100g": 0.3,
+        "saltPer100g": 0.0,
+        "sodiumPer100g": 0.0
+      }
+    },
+
+    {
+      "barcode": "4311501654321",
+      "name": "Banane 1kg",
+      "brands": ["Chiquita"],
+      "categories": ["Fruits"],
+      "foodGroup": "Fruits & Vegetables",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100g",
+      "nutrition": {
+        "energyKcalPer100g": 89,
+        "energyKjPer100g": 371,
+        "fatPer100g": 0.3,
+        "saturatedFatPer100g": 0.1,
+        "carbohydratesPer100g": 23.0,
+        "sugarsPer100g": 12.0,
+        "proteinsPer100g": 1.1,
+        "saltPer100g": 0.0,
+        "sodiumPer100g": 0.0
+      }
+    },
+    {
+      "barcode": "2001234567890",
+      "name": "Hähnchenbrust 500g",
+      "brands": ["Wiesenhof"],
+      "categories": ["Meat", "Poultry"],
+      "foodGroup": "Meat & Fish",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100g",
+      "nutrition": {
+        "energyKcalPer100g": 120,
+        "energyKjPer100g": 502,
+        "fatPer100g": 1.5,
+        "saturatedFatPer100g": 0.4,
+        "carbohydratesPer100g": 0.0,
+        "sugarsPer100g": 0.0,
+        "proteinsPer100g": 22.5,
+        "saltPer100g": 0.1,
+        "sodiumPer100g": 0.04
+      }
+    },
+    {
+      "barcode": "7622210449283",
+      "name": "Spaghetti 500g",
+      "brands": ["Barilla"],
+      "categories": ["Grains", "Pasta"],
+      "foodGroup": "Grains & Cereals",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100g",
+      "nutrition": {
+        "energyKcalPer100g": 359,
+        "energyKjPer100g": 1503,
+        "fatPer100g": 2.0,
+        "saturatedFatPer100g": 0.5,
+        "carbohydratesPer100g": 71.0,
+        "sugarsPer100g": 3.5,
+        "proteinsPer100g": 12.5,
+        "saltPer100g": 0.01,
+        "sodiumPer100g": 0.004
+      }
+    },
+    {
+      "barcode": "4005808743210",
+      "name": "Passierte Tomaten 500g",
+      "brands": ["Mutti"],
+      "categories": ["Canned Food", "Tomatoes"],
+      "foodGroup": "Fruits & Vegetables",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100g",
+      "nutrition": {
+        "energyKcalPer100g": 30,
+        "energyKjPer100g": 126,
+        "fatPer100g": 0.2,
+        "saturatedFatPer100g": 0.0,
+        "carbohydratesPer100g": 4.5,
+        "sugarsPer100g": 4.5,
+        "proteinsPer100g": 1.5,
+        "saltPer100g": 0.1,
+        "sodiumPer100g": 0.04
+      }
+    },
+    {
+      "barcode": "5000159484695",
+      "name": "Coca-Cola 1.5L",
+      "brands": ["Coca-Cola"],
+      "categories": ["Beverages", "Soft Drinks"],
+      "foodGroup": "Beverages",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100ml",
+      "nutrition": {
+        "energyKcalPer100g": 42,
+        "energyKjPer100g": 176,
+        "fatPer100g": 0.0,
+        "saturatedFatPer100g": 0.0,
+        "carbohydratesPer100g": 10.6,
+        "sugarsPer100g": 10.6,
+        "proteinsPer100g": 0.0,
+        "saltPer100g": 0.0,
+        "sodiumPer100g": 0.0
+      }
+    },
+    {
+      "barcode": "3017620422003",
+      "name": "Nutella 750g",
+      "brands": ["Ferrero"],
+      "categories": ["Spreads", "Chocolate"],
+      "foodGroup": "Sweets & Snacks",
+      "source": "OpenFoodFacts",
+      "hasNutritionData": true,
+      "nutritionDataPer": "100g",
+      "nutrition": {
+        "energyKcalPer100g": 539,
+        "energyKjPer100g": 2252,
+        "fatPer100g": 30.9,
+        "saturatedFatPer100g": 10.6,
+        "carbohydratesPer100g": 57.5,
+        "sugarsPer100g": 56.3,
+        "proteinsPer100g": 6.3,
+        "saltPer100g": 0.107,
+        "sodiumPer100g": 0.042
+      }
+    },
+    {
+      "barcode": "7612100018913",
+      "name": "USB-C Cable",
+      "brands": ["Anker"],
+      "categories": ["Electronics", "Accessories"],
+      "foodGroup": "",
+      "source": "Manual",
+      "hasNutritionData": false,
+      "nutritionDataPer": "",
+      "nutrition": {}
+    }
+  ],
+
+  "receipts": [
+    {
+      "merchant": "REWE",
+      "currency": "EUR",
+      "rawOcrResult": "{\"merchant\":\"REWE\",\"items\":[{\"name\":\"Vollmilch 1L\",\"price\":1.09},{\"name\":\"Butter 250g\",\"price\":1.79},{\"name\":\"Spaghetti 500g\",\"price\":1.49}],\"currency\":\"EUR\"}",
+      "items": [
+        { "productName": "Vollmilch 1L", "productPrice": 1.09, "productBarcode": "4008400401001" },
+        { "productName": "Butter 250g", "productPrice": 1.79, "productBarcode": "4000417025005" },
+        { "productName": "Spaghetti 500g", "productPrice": 1.49, "productBarcode": "7622210449283" }
+      ]
+    },
+    {
+      "merchant": "Lidl",
+      "currency": "EUR",
+      "rawOcrResult": "{\"merchant\":\"Lidl\",\"items\":[{\"name\":\"Apfel 1kg\",\"price\":1.99},{\"name\":\"Banane 1kg\",\"price\":1.69}],\"currency\":\"EUR\"}",
+      "items": [
+        { "productName": "Apfel 1kg", "productPrice": 1.99, "productBarcode": "4010355012345" },
+        { "productName": "Banane 1kg", "productPrice": 1.69, "productBarcode": "4311501654321" }
+      ]
+    },
+    {
+      "merchant": "Aldi",
+      "currency": "EUR",
+      "rawOcrResult": "{\"merchant\":\"Aldi\",\"items\":[{\"name\":\"Hähnchenbrust 500g\",\"price\":4.99},{\"name\":\"Passierte Tomaten 500g\",\"price\":0.89}],\"currency\":\"EUR\"}",
+      "items": [
+        { "productName": "Hähnchenbrust 500g", "productPrice": 4.99, "productBarcode": "2001234567890" },
+        { "productName": "Passierte Tomaten 500g", "productPrice": 0.89, "productBarcode": "4005808743210" }
+      ]
+    },
+    {
+      "merchant": "Edeka",
+      "currency": "EUR",
+      "rawOcrResult": "{\"merchant\":\"Edeka\",\"items\":[{\"name\":\"Coca-Cola 1.5L\",\"price\":1.29},{\"name\":\"Nutella 750g\",\"price\":4.49}],\"currency\":\"EUR\"}",
+      "items": [
+        { "productName": "Coca-Cola 1.5L", "productPrice": 1.29, "productBarcode": "5000159484695" },
+        { "productName": "Nutella 750g", "productPrice": 4.49, "productBarcode": "3017620422003" }
+      ]
+    },
+    {
+      "merchant": "Amazon",
+      "currency": "EUR",
+      "rawOcrResult": "{\"merchant\":\"Amazon\",\"items\":[{\"name\":\"USB-C Cable\",\"price\":12.99}],\"currency\":\"EUR\"}",
+      "items": [
+        { "productName": "USB-C Cable", "productPrice": 12.99, "productBarcode": "7612100018913" }
+      ]
+    }
+  ]
+}
