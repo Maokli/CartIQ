@@ -1,0 +1,53 @@
+@mixin define-color-tokens() {
+  --ref-color-navy-900: #1c2b3a;
+  --ref-color-mint-500: #2dd4aa;
+  --ref-color-mint-900: #085041;
+  --ref-color-sand-50: #f5f4f0;
+  --ref-color-sand-100: #f0ede6;
+  --ref-color-sand-200: #e5e3dc;
+  --ref-color-sand-300: #adab9f;
+  --ref-color-ink-600: #5f5e5a;
+  --ref-color-white: #ffffff;
+  --ref-color-hover: #fafaf8;
+
+  --color-bg-app: var(--ref-color-sand-50);
+  --color-bg-surface: var(--ref-color-white);
+  --color-bg-navbar: var(--ref-color-navy-900);
+  --color-bg-subtle: var(--ref-color-hover);
+
+  --color-text-primary: var(--ref-color-navy-900);
+  --color-text-secondary: var(--ref-color-ink-600);
+  --color-text-muted: var(--ref-color-sand-300);
+  --color-text-inverse: var(--ref-color-white);
+
+  --color-border-default: var(--ref-color-sand-200);
+  --color-border-subtle: var(--ref-color-sand-100);
+
+  --color-action-primary-bg: var(--ref-color-navy-900);
+  --color-action-primary-fg: var(--ref-color-white);
+  --color-action-accent-bg: var(--ref-color-mint-500);
+  --color-action-accent-fg: var(--ref-color-mint-900);
+
+  --color-status-success-bg: #e1f5ee;
+  --color-status-success-fg: #0f6e56;
+  --color-status-warning-bg: #faeeda;
+  --color-status-warning-fg: #854f0b;
+  --color-status-info-bg: #e6f1fb;
+  --color-status-info-fg: #185fa5;
+
+  --color-nutrient-protein: #2dd4aa;
+  --color-nutrient-carbs: #378add;
+  --color-nutrient-fat: #7f77dd;
+  --color-nutrient-kcal: #ef9f27;
+
+  --app-bg: var(--color-bg-app);
+  --app-surface: var(--color-bg-surface);
+  --app-border: var(--color-border-default);
+  --app-navbar: var(--color-bg-navbar);
+  --app-text-muted: var(--color-text-muted);
+
+  --nutrient-protein: var(--color-nutrient-protein);
+  --nutrient-carbs: var(--color-nutrient-carbs);
+  --nutrient-fat: var(--color-nutrient-fat);
+  --nutrient-kcal: var(--color-nutrient-kcal);
+}

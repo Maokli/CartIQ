@@ -1,0 +1,16 @@
+<mat-card class="app-table-shell app-card">
+  <mat-card-header class="app-table-shell__header">
+    <mat-card-title class="app-table-shell__title">
+      <ng-content select="[slot=title]"></ng-content>
+    </mat-card-title>
+    <div class="app-table-shell__actions">
+      <ng-content select="[slot=actions]"></ng-content>
+    </div>
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <ng-content></ng-content>
+  </mat-card-content>
+</mat-card>

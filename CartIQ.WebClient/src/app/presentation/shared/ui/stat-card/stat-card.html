@@ -1,0 +1,10 @@
+<div class="app-stat-card">
+  <p class="app-stat-card__label">{{ label }}</p>
+  <p class="app-stat-card__value">{{ value }}</p>
+  <p class="app-stat-card__sub"
+      [class.app-stat-card__sub--success]="subAccent === 'green'"
+      [class.app-stat-card__sub--warning]="subAccent === 'amber'"
+      [class.app-stat-card__sub--muted]="!subAccent">
+    {{ sub }}
+  </p>
+</div>

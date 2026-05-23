@@ -1,0 +1,5 @@
+@mixin define-motion-tokens() {
+  --duration-fast: 120ms;
+  --duration-normal: 180ms;
+  --easing-standard: ease;
+}
