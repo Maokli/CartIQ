@@ -1,127 +1,112 @@
-<mat-table [dataSource]="dataSource" class="app-receipts-table">
+<div hlmTableContainer>
+  <table hlmTable>
+    <thead hlmTHead>
+      <tr hlmTr>
+        <th hlmTh>Merchant</th>
+        <th hlmTh>Category</th>
+        <th hlmTh>Items</th>
+        <th hlmTh>Nutrients</th>
+        <th hlmTh class="text-right">Amount</th>
+        <th hlmTh class="w-10"></th>
+      </tr>
+    </thead>
 
-  <ng-container matColumnDef="merchant">
-    <mat-header-cell *matHeaderCellDef class="app-receipts-table__header">Merchant</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <div class="receipt-merchant">
-        <div class="receipt-merchant__avatar"
-             [style.background-color]="asReceipt(row).merchant.backgroundColor"
-             [style.color]="asReceipt(row).merchant.color">
-          {{ asReceipt(row).merchant.name| slice:0:1 | uppercase }}
-        </div>
-        <div class="receipt-merchant__meta">
-          <span class="receipt-merchant__name">
-            {{ asReceipt(row).merchant.name }}
-          </span>
-          <span class="receipt-merchant__date">
-            {{ asReceipt(row).created | date:'dd MMM yyyy' }}
-          </span>
-        </div>
-      </div>
-    </mat-cell>
-  </ng-container>
+    <tbody hlmTBody>
+      @for (row of receipts(); track row.id) {
+        <tr hlmTr class="cursor-pointer">
+          <td hlmTd>
+            <div class="flex items-center gap-2.5 py-2.5">
+              <hlm-item-media>
+                <hlm-avatar>
+                  <span
+                    hlmAvatarFallback
+                    [style.background-color]="row.merchant.backgroundColor"
+                    [style.color]="row.merchant.color"
+                  >
+                    {{ row.merchant.name | slice: 0 : 1 | uppercase }}
+                  </span>
+                </hlm-avatar>
+              </hlm-item-media>
+              <hlm-item-content>
+                <hlm-item-title>{{ row.merchant.name }}</hlm-item-title>
+                <hlm-item-description>{{ row.created | date: 'dd MMM yyyy' }}</hlm-item-description>
+              </hlm-item-content>
+            </div>
+          </td>
 
-  <ng-container matColumnDef="category">
-    <mat-header-cell *matHeaderCellDef class="app-receipts-table__header">Category</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <span class="category-badge category-badge--{{ asReceipt(row).category | lowercase }}">
-        {{ asReceipt(row).category }}
-      </span>
-    </mat-cell>
-  </ng-container>
+          <td hlmTd>
+            <hlm-badge [class]="categoryClass(row.category)">{{ row.category }}</hlm-badge>
+          </td>
 
-  <ng-container matColumnDef="items">
-    <mat-header-cell *matHeaderCellDef class="app-receipts-table__header">Items</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <div class="receipt-items">
-        @for (tag of asReceipt(row).topItems | slice:0:2; track tag) {
-          <span class="item-tag">{{ tag }}</span>
-        }
-        @if (asReceipt(row).itemsCount > 2) {
-          <span class="item-tag">+{{ asReceipt(row).itemsCount - 2 }}</span>
-        }
-      </div>
-    </mat-cell>
-  </ng-container>
+          <td hlmTd>
+            <div class="flex flex-wrap gap-1 py-2.5">
+              @for (tag of row.topItems | slice: 0 : 2; track tag) {
+                <hlm-badge variant="outline">{{ tag }}</hlm-badge>
+              }
+              @if (row.itemsCount > 2) {
+                <hlm-badge variant="outline">+{{ row.itemsCount - 2 }}</hlm-badge>
+              }
+            </div>
+          </td>
 
-  <ng-container matColumnDef="nutrients">
-    <mat-header-cell *matHeaderCellDef class="app-receipts-table__header">Nutrients</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <div class="nutrient-bars">
-        <div class="nutrient-bars__segment nutrient-bars__segment--protein"
-             [style.width.px]="asReceipt(row).nutrients.protein"></div>
-        <div class="nutrient-bars__segment nutrient-bars__segment--carbs"
-             [style.width.px]="asReceipt(row).nutrients.carbs"></div>
-        <div class="nutrient-bars__segment nutrient-bars__segment--fat"
-             [style.width.px]="asReceipt(row).nutrients.fat"></div>
-        <div class="nutrient-bars__segment nutrient-bars__segment--kcal"
-             [style.width.px]="asReceipt(row).nutrients.kcal"></div>
-      </div>
-    </mat-cell>
-  </ng-container>
+          <td hlmTd>
+            <app-nutrient-bar class="py-2.5" [nutrients]="row.nutrients" />
+          </td>
 
-  <ng-container matColumnDef="totalAmount">
-    <mat-header-cell *matHeaderCellDef class="app-receipts-table__header app-receipts-table__header--right">Amount</mat-header-cell>
-    <mat-cell *matCellDef="let row" class="app-receipts-table__cell--right">
-      <span class="receipt-amount">
-        {{ asReceipt(row).totalAmount | number:'1.2-2' }}
-        <span class="receipt-amount__currency">
-          {{ asReceipt(row).currency }}
-        </span>
-      </span>
-    </mat-cell>
-  </ng-container>
+          <td hlmTd class="text-right">
+            <span hlmSmall>
+              {{ row.totalAmount | number: '1.2-2' }}
+              <span hlmMuted class="ml-0.5">{{ row.currency }}</span>
+            </span>
+          </td>
 
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef class="app-receipts-table__actions-column"></mat-header-cell>
-    <mat-cell *matCellDef="let row" class="app-receipts-table__actions-column app-receipts-table__cell--right">
-      <button mat-icon-button class="receipt-row-action" aria-label="Open receipt details">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-    </mat-cell>
-  </ng-container>
+          <td hlmTd class="text-right">
+            <button hlmBtn variant="ghost" size="icon" aria-label="Open receipt details">
+              <ng-icon name="lucideChevronRight" />
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr hlmTr>
+          <td hlmTd [attr.colspan]="displayedColumns.length">
+            <hlm-empty>
+              <hlm-empty-header>
+                <hlm-empty-media variant="icon">
+                  <ng-icon name="lucideReceipt" />
+                </hlm-empty-media>
+                <p hlmEmptyTitle>No receipts found</p>
+              </hlm-empty-header>
+            </hlm-empty>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row
-    *matRowDef="let row; columns: displayedColumns;"
-    class="app-receipts-table__row">
-  </mat-row>
-
-  <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-      <div class="receipts-empty-state">
-        <mat-icon class="receipts-empty-state__icon">receipt_long</mat-icon>
-        <span class="receipts-empty-state__text">No receipts found</span>
-      </div>
-    </td>
-  </tr>
-</mat-table>
-
-<div class="nutrient-legend">
-  <span class="nutrient-legend__item">
-    <span class="nutrient-legend__dot" style="background:var(--nutrient-protein)"></span>Protein
+<hlm-separator />
+<div class="flex items-center justify-end gap-3.5 px-4.5 py-2.5">
+  <span hlmMuted class="flex items-center gap-1">
+    <span class="size-2 rounded-xs bg-nutrient-protein"></span>Protein
   </span>
-  <span class="nutrient-legend__item">
-    <span class="nutrient-legend__dot" style="background:var(--nutrient-carbs)"></span>Carbs
+  <span hlmMuted class="flex items-center gap-1">
+    <span class="size-2 rounded-xs bg-nutrient-carbs"></span>Carbs
   </span>
-  <span class="nutrient-legend__item">
-    <span class="nutrient-legend__dot" style="background:var(--nutrient-fat)"></span>Fat
-  </span>
-  <span class="nutrient-legend__item">
-    <span class="nutrient-legend__dot" style="background:var(--nutrient-kcal)"></span>Kcal
+  <span hlmMuted class="flex items-center gap-1">
+    <span class="size-2 rounded-xs bg-nutrient-fat"></span>Fat
   </span>
 </div>
 
-@if (dataSource.loading$ | async) {
-  <div class="receipts-loading-state">
-    <mat-spinner diameter="36"></mat-spinner>
+@if (loading()) {
+  <div class="flex items-center justify-center py-8">
+    <hlm-spinner class="text-4xl" />
   </div>
 }
 
-<mat-paginator
-  [pageSizeOptions]="[5, 10, 20]"
-  [pageSize]="DEFAULT_PAGE_SIZE"
-  [length]="dataSource.itemsCount$ | async"
-  showFirstLastButtons
-  class="app-receipts-table__paginator">
-</mat-paginator>
+<hlm-separator />
+<hlm-numbered-pagination
+  [(currentPage)]="currentPage"
+  [(itemsPerPage)]="itemsPerPage"
+  [totalItems]="itemsCount()"
+  [pageSizes]="[5, 10, 20]"
+/>
