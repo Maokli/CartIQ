@@ -11,10 +11,20 @@
             "id": "d99481f9bd2bc81b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "kanban",
+              "state": {
+                "file": "Boards/Current Sprint.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": [
+                    false,
+                    false,
+                    false
+                  ]
+                }
+              },
+              "icon": "lucide-trello",
+              "title": "Current Sprint"
             }
           }
         ]
@@ -183,6 +193,18 @@
   "active": "d99481f9bd2bc81b",
   "lastOpenFiles": [
     "Boards/Product Roadmap.md",
+    "Dashboard.md",
+    "Dashboard.md.tmp.11143.c4fca6af7406",
+    "Boards/Current Sprint.md",
+    "Boards/Current Sprint.md.tmp.11143.bf6713340dc7",
+    "Epics/Microservices Extraction.md",
+    "Epics/Insights & Signals Dashboard.md",
+    "Epics/Local LLM Receipt Parsing.md",
+    "Epics/Modular Monolith.md",
+    "Epics/Testing Pyramid.md",
+    "Epics/Product Catalog & Open Food Facts.md",
+    "Epics/Rich Domain Model.md",
+    "Epics/Foundation Hardening.md",
     "Boards",
     "Brainstorming V1.md",
     "Boards/Untitled"
