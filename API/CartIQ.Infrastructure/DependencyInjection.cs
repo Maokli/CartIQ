@@ -1,6 +1,10 @@
 ﻿using CartIQ.Application.Common.Interfaces;
+using CartIQ.Application.Files.Interfaces;
+using CartIQ.Application.OCR.Interfaces;
 using CartIQ.Infrastructure.Data;
 using CartIQ.Infrastructure.Data.Repositories;
+using CartIQ.Infrastructure.FileUpload;
+using CartIQ.Infrastructure.OCR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,5 +27,9 @@ public static class DependencyInjection
         builder.Services.AddScoped<ApplicationDbContextInitializer>();
         builder.Services.AddScoped<IReceiptsRepository, ReceiptsRepository>();
         builder.Services.AddScoped<IReceiptItemsRepository, ReceiptItemsRepository>();
+        builder.Services.AddScoped<IOcrService, DummyOCRService>();
+        builder.Services.AddScoped<IFileUploadService, DiskFileUploadService>();
+        builder.Services.AddScoped<IFileMetadataRepository, FileMetadataRepository>();
+        builder.Services.AddScoped<IRawOcrResultsRepository, RawOcrResultsRepository>();
     }
 }

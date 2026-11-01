@@ -1,5 +1,7 @@
+using Ardalis.GuardClauses;
 using CartIQ.Application.Common.Interfaces;
 using CartIQ.Domain.Entities;
+using CartIQ.Infrastructure.Data.Repositories.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace CartIQ.Infrastructure.Data.Repositories;
@@ -27,31 +29,40 @@ public class ReceiptsRepository : IReceiptsRepository
             .ToListAsync(cancellationToken);
     }
 
-    public Task<Receipt> GetReceiptAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<Receipt> GetReceiptAsync(Guid id, CancellationToken cancellationToken)
     {
-        return _dbContext.Receipts
+        var receipt = await _dbContext.Receipts
             .Include(r => r.Items)
             .FirstOrDefaultAsync(receipt => receipt.Id == id, cancellationToken);
+        
+        Guard.Against.NotFound(id, receipt);
+        
+        return receipt;
     }
 
     public async Task<bool> DeleteReceiptAsync(Guid id, CancellationToken cancellationToken)
     {
-        var deletedCount = await _dbContext.Receipts
-            .Where(receipt => receipt.Id == id)
-            .ExecuteDeleteAsync();
+        var receipt = await GetReceiptAsync(id, cancellationToken);
         
-        return deletedCount > 0;
+        _dbContext.Receipts.Remove(receipt);
+        
+        return await _dbContext.SaveChangesAsync(cancellationToken) > 0;
     }
 
-    public async Task<bool> UpdateReceiptAsync(Receipt receipt, CancellationToken cancellationToken)
+    public async Task<bool> UpdateReceiptAsync(Receipt receipt,
+        IReadOnlyList<Guid> itemIdsToDelete, 
+        IReadOnlyList<ReceiptItem> itemsToAdd, 
+        CancellationToken cancellationToken)
     {
-         var updatedCount = await _dbContext.Receipts
-            .Where(r => r.Id == receipt.Id)
-            .ExecuteUpdateAsync(setters => 
-                setters.SetProperty(r => r.Currency, receipt.Currency)
-                    .SetProperty(r => r.Merchant, receipt.Merchant),
-                cancellationToken);
+        var receiptToUpdate = await GetReceiptAsync(receipt.Id, cancellationToken);
+        receiptToUpdate.Currency = receipt.Currency;
+        receiptToUpdate.Merchant = receipt.Merchant;
+        
+        _dbContext.Receipts.Update(receiptToUpdate);
+        
+        await _dbContext.DeleteReceiptItemsAsync(itemIdsToDelete, cancellationToken);
+        _dbContext.AddReceiptItems(itemsToAdd, cancellationToken);
          
-         return updatedCount > 0;
+        return  await _dbContext.SaveChangesAsync(cancellationToken) > 0;
     }
 }
