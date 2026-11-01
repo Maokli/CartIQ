@@ -1,0 +1,25 @@
+@if (macroTotal() > 0) {
+  <div class="flex h-2.5 w-24 gap-0.5" role="img" [attr.aria-label]="ariaLabel()">
+    @for (segment of segments(); track segment.label) {
+      <div
+        class="h-full basis-0 rounded-xs"
+        [class]="segment.colorClass"
+        [style.flex-grow]="segment.value"
+        [brnTooltip]="tip"
+      ></div>
+      <ng-template #tip>
+        <span
+          class="rounded-md px-3 py-1.5 text-xs font-medium text-primary-foreground"
+          [class]="segment.colorClass"
+        >
+          {{ segment.label }} · {{ segment.value | number: '1.0-0' }} g
+        </span>
+      </ng-template>
+    }
+  </div>
+}
+@if (nutrients().kcal > 0) {
+  <span hlmMuted class="tabular-nums whitespace-nowrap">{{ nutrients().kcal | number: '1.0-0' }} kcal</span>
+} @else if (macroTotal() === 0) {
+  <span hlmMuted>—</span>
+}

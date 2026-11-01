@@ -9,13 +9,5 @@
     "custom-property-empty-line-before": null,
     "declaration-block-single-line-max-declarations": null,
     "color-hex-length": null
-  },
-  "overrides": [
-    {
-      "files": ["src/styles/design-system/tokens/_color.scss"],
-      "rules": {
-        "color-no-hex": null
-      }
-    }
-  ]
+  }
 }

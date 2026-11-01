@@ -11,18 +11,14 @@
             "id": "d99481f9bd2bc81b",
             "type": "leaf",
             "state": {
-              "type": "kanban",
+              "type": "markdown",
               "state": {
-                "file": "Boards/Product Roadmap.md",
-                "kanbanViewState": {
-                  "kanban-plugin": "board",
-                  "list-collapse": [
-                    false
-                  ]
-                }
+                "file": "Dashboard.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-trello",
-              "title": "Product Roadmap"
+              "icon": "lucide-file",
+              "title": "Dashboard"
             }
           }
         ]
@@ -190,9 +186,21 @@
   },
   "active": "d99481f9bd2bc81b",
   "lastOpenFiles": [
-    "Boards/Product Roadmap.md",
     "Brainstorming V1.md",
-    "Boards/Untitled",
-    "Boards"
+    "Boards/Current Sprint.md",
+    "Boards/Product Roadmap.md",
+    "Dashboard.md",
+    "Dashboard.md.tmp.11143.c4fca6af7406",
+    "Boards/Current Sprint.md.tmp.11143.bf6713340dc7",
+    "Epics/Microservices Extraction.md",
+    "Epics/Insights & Signals Dashboard.md",
+    "Epics/Local LLM Receipt Parsing.md",
+    "Epics/Modular Monolith.md",
+    "Epics/Testing Pyramid.md",
+    "Epics/Product Catalog & Open Food Facts.md",
+    "Epics/Rich Domain Model.md",
+    "Epics/Foundation Hardening.md",
+    "Boards",
+    "Boards/Untitled"
   ]
 }

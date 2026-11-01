@@ -1,29 +1,57 @@
-<div class="receipts-page">
+<div class="mx-auto flex w-full max-w-7xl flex-col gap-4">
 
-  <div class="receipts-page__header">
+  <div class="flex items-center justify-between">
     <div>
-      <h1 class="receipts-page__title">Receipts</h1>
-      <p class="receipts-page__subtitle">Tracking your spending and nutrition</p>
+      <h1 hlmH4>Receipts</h1>
+      <p hlmMuted class="mt-0.5">Tracking your spending and nutrition</p>
     </div>
   </div>
 
-  <div class="receipts-page__stats">
-    <app-stat-card label="This month"       value="€312.40" sub="↓ 8% vs last month"    subAccent="green" />
-    <app-stat-card label="Receipts"         value="14"      sub="across 6 stores" />
-    <app-stat-card label="Avg. kcal / day"  value="1,840"   sub="from tracked items" />
-    <app-stat-card label="Top nutrient gap" value="Vitamin D" sub="low across 9 receipts" subAccent="amber" />
+  <div class="grid grid-cols-4 gap-2.5">
+    <hlm-card size="sm">
+      <div hlmCardContent class="flex flex-col gap-1.5">
+        <p hlmMuted>This month</p>
+        <p hlmLarge>€312.40</p>
+        <p hlmMuted class="text-status-success-foreground">↓ 8% vs last month</p>
+      </div>
+    </hlm-card>
+    <hlm-card size="sm">
+      <div hlmCardContent class="flex flex-col gap-1.5">
+        <p hlmMuted>Receipts</p>
+        <p hlmLarge>14</p>
+        <p hlmMuted>across 6 stores</p>
+      </div>
+    </hlm-card>
+    <hlm-card size="sm">
+      <div hlmCardContent class="flex flex-col gap-1.5">
+        <p hlmMuted>Avg. kcal / day</p>
+        <p hlmLarge>1,840</p>
+        <p hlmMuted>from tracked items</p>
+      </div>
+    </hlm-card>
+    <hlm-card size="sm">
+      <div hlmCardContent class="flex flex-col gap-1.5">
+        <p hlmMuted>Top nutrient gap</p>
+        <p hlmLarge>Vitamin D</p>
+        <p hlmMuted class="text-status-warning-foreground">low across 9 receipts</p>
+      </div>
+    </hlm-card>
   </div>
 
-  <app-table-container>
-    <span slot="title">All receipts</span>
-    <app-action-button
-      slot="actions"
-      label="Add receipt"
-      icon="add"
-      color="primary"
-      (action)="openAddReceiptModal()">
-    </app-action-button>
-    <app-receipts-list></app-receipts-list>
-  </app-table-container>
+  <hlm-card class="w-full overflow-hidden">
+    <hlm-card-header>
+      <h3 hlmCardTitle>All receipts</h3>
+      <div hlmCardAction>
+        <button hlmBtn (click)="openAddReceiptModal()">
+          <ng-icon name="lucidePlus" />
+          Add receipt
+        </button>
+      </div>
+    </hlm-card-header>
+    <hlm-separator />
+    <div hlmCardContent class="px-0">
+      <app-receipts-list />
+    </div>
+  </hlm-card>
 
 </div>

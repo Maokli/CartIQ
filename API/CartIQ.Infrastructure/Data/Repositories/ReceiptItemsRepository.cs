@@ -1,5 +1,7 @@
+using Ardalis.GuardClauses;
 using CartIQ.Application.Common.Interfaces;
 using CartIQ.Domain.Entities;
+using CartIQ.Infrastructure.Data.Repositories.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace CartIQ.Infrastructure.Data.Repositories;
@@ -14,17 +16,26 @@ public class ReceiptItemsRepository : IReceiptItemsRepository
     
     public async Task<bool> DeleteReceiptItemsAsync(IEnumerable<Guid> receiptItemIds, CancellationToken cancellationToken)
     {
-        var deletedCount = await _dbContext.ReceiptItems
-            .Where(receiptItem => receiptItemIds.Contains(receiptItem.Id))
-            .ExecuteDeleteAsync(cancellationToken);
+        await _dbContext.DeleteReceiptItemsAsync(receiptItemIds, cancellationToken);
         
-        return deletedCount == receiptItemIds.Count();
+        var result = await _dbContext.SaveChangesAsync(cancellationToken);
+        if (result <= 0)
+        {
+            throw new DbUpdateException();
+        }
+
+        return true;
     }
 
     public async Task<List<ReceiptItem>> AddReceiptItemsAsync(List<ReceiptItem> receiptItems, CancellationToken cancellationToken)
     {
-        _dbContext.ReceiptItems.AddRange(receiptItems.ToArray());
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        _dbContext.AddReceiptItems(receiptItems, cancellationToken);
+        var result = await _dbContext.SaveChangesAsync(cancellationToken);
+
+        if (result <= 0)
+        {
+            throw new DbUpdateException();
+        }
         
         return receiptItems;
     }

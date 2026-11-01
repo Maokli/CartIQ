@@ -6,6 +6,8 @@ const srcRoot = path.join(workspaceRoot, 'src');
 
 const htmlHexPattern = /#[0-9a-fA-F]{3,8}\b/;
 const arbitraryVisualClassPattern = /(text|bg|border|rounded|w|h|tracking)-\[[^\]]+\]/;
+const nonSemanticTailwindColorPattern =
+  /\b(?:bg|text|border|ring|fill|stroke|from|via|to|outline|decoration|caret|shadow)-(?:red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|slate|gray|zinc|neutral|stone)-(?:50|100|200|300|400|500|600|700|800|900|950)\b/;
 
 async function listHtmlFiles(directoryPath) {
   const entries = await readdir(directoryPath, { withFileTypes: true });
@@ -46,6 +48,14 @@ function findViolationsInContent(filePath, content) {
         filePath,
         line: index + 1,
         reason: 'Arbitrary visual utility class found in template'
+      });
+    }
+
+    if (nonSemanticTailwindColorPattern.test(line)) {
+      violations.push({
+        filePath,
+        line: index + 1,
+        reason: 'Non-semantic Tailwind palette color found in template - use a semantic token (bg-primary, text-muted-foreground, etc.) instead'
       });
     }
   });

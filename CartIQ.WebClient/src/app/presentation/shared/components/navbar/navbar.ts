@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 
 @Component({
   selector: 'app-navbar',
-  standalone: false,
+  imports: [RouterLink, RouterLinkActive, ...HlmAvatarImports],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
 })
 export class Navbar {
   links = [
-    { label: 'Receipts',  path: '/receipts'  },
+    { label: 'Receipts', path: '/receipts' },
     { label: 'Analytics', path: '/analytics' },
     { label: 'Nutrients', path: '/nutrients' },
   ];
