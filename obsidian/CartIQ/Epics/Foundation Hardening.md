@@ -24,8 +24,8 @@ Learn what separates a tutorial API from a production-grade one: pipeline-level 
 - [x] **`LoggingBehaviour` + `UnhandledExceptionBehaviour`** — request name + elapsed ms logged; unhandled exceptions logged with request payload.
 - [x] **Transaction around UpdateReceipt** — resolves the `// TODO: Wrap in transaction` (delete items + add items + update are non-atomic today). *AC: induced failure mid-update leaves DB unchanged.*
 - [x] **Config hygiene** — CORS origins from config (not `AllowAnyOrigin`), delete leftover `WeatherForecast`, fix copy-pasted OpenAPI summary on Files endpoints, make the SQLite path relative.
-- [ ] **Angular: register `provideHttpClient()`** — it's missing; `ReceiptRepositoryImpl` would throw NullInjectorError. *AC: receipts list loads against the running API.*
-- [ ] **Angular: explicit `provideZonelessChangeDetection()`** in `app.config.ts` (currently implicit).
+- [x] **Angular: register `provideHttpClient()`** — it's missing; `ReceiptRepositoryImpl` would throw NullInjectorError. *AC: receipts list loads against the running API.*
+- [x] **Angular: explicit `provideZonelessChangeDetection()`** in `app.config.ts` (currently implicit).
 - [ ] **Angular: environment-based API base URL** — replace hard-coded `http://localhost:5200` in `ReceiptRepositoryImpl` with an injected config/environment value.
 
 ## Definition of done

@@ -6,17 +6,17 @@ kanban-plugin: board
 
 ## 📥 To Do
 
-- [ ] Angular: explicit provideZonelessChangeDetection() [[Foundation Hardening]]
-- [ ] Angular: environment-based API base URL [[Foundation Hardening]]
 
 
 ## 🚧 In Progress
 
-- [ ] Angular: add missing provideHttpClient() [[Foundation Hardening]]
+- [ ] Angular: environment-based API base URL [[Foundation Hardening]]
 
 
 ## ✅ Done
 
+- [ ] Angular: explicit provideZonelessChangeDetection() [[Foundation Hardening]]
+- [ ] Angular: add missing provideHttpClient() [[Foundation Hardening]]
 - [ ] Config hygiene: CORS from config, remove WeatherForecast, fix Files OpenAPI text [[Foundation Hardening]]
 - [ ] Logging + UnhandledException behaviours [[Foundation Hardening]]
 - [ ] Wrap UpdateReceipt in a transaction [[Foundation Hardening]]
