@@ -21,11 +21,7 @@ public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand,
     
     public async Task<Result<bool>> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
     {
-        // TODO: Wrap in transaction
-        await _receiptItemsRepository.DeleteReceiptItemsAsync(
-            receiptItemIds: request.ItemsToDelete.Select(i => i.Id).ToList(),
-            cancellationToken: cancellationToken);
-
+        var itemIdsToDelete = request.ItemsToDelete.Select(i => i.Id).ToList();
         var itemsToAdd = request.ItemsToAdd
             .Select(i =>
                 new ReceiptItem(receiptId: request.Id,
@@ -34,13 +30,11 @@ public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand,
                 )
             )
             .ToList();
-        await _receiptItemsRepository.AddReceiptItemsAsync(
-            receiptItems: itemsToAdd,
-            cancellationToken: cancellationToken
-        );
 
         var isSuccess = await _receiptsRepository.UpdateReceiptAsync(
             receipt: new Receipt(id: request.Id, currency: request.Currency, merchant: request.Merchant),
+            itemIdsToDelete: itemIdsToDelete,
+            itemsToAdd: itemsToAdd,
             cancellationToken: cancellationToken
         );
         

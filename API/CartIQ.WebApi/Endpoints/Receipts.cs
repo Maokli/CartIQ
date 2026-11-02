@@ -42,21 +42,27 @@ public class Receipts : IEndpointGroup
     
     [EndpointSummary("Delete receipt.")]
     [EndpointDescription("Deletes a receipt with a given Id.")]
-    public static async Task<Ok<Result<bool>>> DeleteReceipt(ISender sender, Guid Id, CancellationToken cancellationToken)
+    public static async Task<Results<BadRequest, NoContent>> DeleteReceipt(ISender sender, Guid Id, CancellationToken cancellationToken)
     {
         var command = new DeleteReceiptCommand(Id);
         var result = await sender.Send(command, cancellationToken);
         
-        return TypedResults.Ok(result);
+        if(!result.ResultItem)
+            return TypedResults.BadRequest();
+        
+        return TypedResults.NoContent();
     }
     
     
     [EndpointSummary("Update receipt.")]
     [EndpointDescription("Updates a receipt with a given Id.")]
-    public static async Task<Ok<Result<bool>>> UpdateReceipt(ISender sender, UpdateReceiptCommand command, CancellationToken cancellationToken)
+    public static async Task<Results<BadRequest, NoContent>> UpdateReceipt(ISender sender, UpdateReceiptCommand command, CancellationToken cancellationToken)
     {
         var result = await sender.Send(command, cancellationToken);
         
-        return TypedResults.Ok(result);
+        if(!result.ResultItem)
+            return TypedResults.BadRequest();
+        
+        return TypedResults.NoContent();
     }
 }

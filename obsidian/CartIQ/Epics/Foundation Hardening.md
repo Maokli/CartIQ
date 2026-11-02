@@ -16,15 +16,14 @@ Learn what separates a tutorial API from a production-grade one: pipeline-level 
 
 ## Tasks
 
-- [ ] **Fix binary upload corruption** — `DiskFileUploadService` + the Upload endpoint read/write the file as a UTF-8 string; images corrupt. Stream `IFormFile.OpenReadStream()` to disk. *AC: upload a JPEG, byte-for-byte identical on disk (compare checksums).*
-- [ ] **Validate uploads** — content-type allowlist (jpeg/png/pdf), max size from config. *AC: oversized/wrong-type upload returns 400 ProblemDetails, nothing written to disk.*
-- [ ] **Implement `RawOcrResultsRepository.AddRawOcrResult`** — currently `throw new NotImplementedException()`. *AC: OCR result row persisted and linked to the file/receipt.*
-- [ ] **Global exception handling** — `IExceptionHandler` + `AddProblemDetails()`; no raw stack traces to clients. *AC: forced exception returns RFC 9457 body with traceId.*
-- [ ] **Use the `Result.Failure` channel** — handlers return `Failure` for expected errors (not found, invalid state); endpoints map to 404/400/409. *AC: GET unknown receipt id → 404 with ProblemDetails, no exception thrown.*
-- [ ] **MediatR `ValidationBehaviour`** — add FluentValidation, validators for Update/Upload commands, behavior short-circuits to `Failure`. *AC: invalid UpdateReceipt returns 400 listing each field error.*
-- [ ] **`LoggingBehaviour` + `UnhandledExceptionBehaviour`** — request name + elapsed ms logged; unhandled exceptions logged with request payload.
-- [ ] **Transaction around UpdateReceipt** — resolves the `// TODO: Wrap in transaction` (delete items + add items + update are non-atomic today). *AC: induced failure mid-update leaves DB unchanged.*
-- [ ] **Config hygiene** — CORS origins from config (not `AllowAnyOrigin`), delete leftover `WeatherForecast`, fix copy-pasted OpenAPI summary on Files endpoints, make the SQLite path relative.
+- [x] **Fix binary upload corruption** — `DiskFileUploadService` + the Upload endpoint read/write the file as a UTF-8 string; images corrupt. Stream `IFormFile.OpenReadStream()` to disk. *AC: upload a JPEG, byte-for-byte identical on disk (compare checksums).*
+- [x] **Validate uploads** — content-type allowlist (jpeg/png/pdf), max size from config. *AC: oversized/wrong-type upload returns 400 ProblemDetails, nothing written to disk.*
+- [x] **Implement `RawOcrResultsRepository.AddRawOcrResult`** — currently `throw new NotImplementedException()`. *AC: OCR result row persisted and linked to the file/receipt.*
+- [x] **Global exception handling** — `IExceptionHandler` + `AddProblemDetails()`; no raw stack traces to clients. *AC: forced exception returns RFC 9457 body with traceId.*
+- [x] **MediatR `ValidationBehaviour`** — add FluentValidation, validators for Update/Upload commands, behavior short-circuits to `Failure`. *AC: invalid UpdateReceipt returns 400 listing each field error.*
+- [x] **`LoggingBehaviour` + `UnhandledExceptionBehaviour`** — request name + elapsed ms logged; unhandled exceptions logged with request payload.
+- [x] **Transaction around UpdateReceipt** — resolves the `// TODO: Wrap in transaction` (delete items + add items + update are non-atomic today). *AC: induced failure mid-update leaves DB unchanged.*
+- [x] **Config hygiene** — CORS origins from config (not `AllowAnyOrigin`), delete leftover `WeatherForecast`, fix copy-pasted OpenAPI summary on Files endpoints, make the SQLite path relative.
 - [ ] **Angular: register `provideHttpClient()`** — it's missing; `ReceiptRepositoryImpl` would throw NullInjectorError. *AC: receipts list loads against the running API.*
 - [ ] **Angular: explicit `provideZonelessChangeDetection()`** in `app.config.ts` (currently implicit).
 - [ ] **Angular: environment-based API base URL** — replace hard-coded `http://localhost:5200` in `ReceiptRepositoryImpl` with an injected config/environment value.
