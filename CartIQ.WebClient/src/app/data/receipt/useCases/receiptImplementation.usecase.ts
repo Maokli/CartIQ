@@ -21,8 +21,8 @@ export class ReceiptUseCaseImpl extends ReceiptUseCase {
   ): Observable<PaginationResult<Receipt>> {
     return this.repo.getReceipts(pageIndex, pageSize).pipe(
       map(res => {
-        if (!res.succeeded || !res.resultItem) {
-          throw new Error(res.errors?.join(', ') || 'Failed to fetch receipts');
+        if (!res.resultItem) {
+          throw new Error('Failed to fetch receipts');
         }
 
         return res.resultItem;
@@ -32,37 +32,19 @@ export class ReceiptUseCaseImpl extends ReceiptUseCase {
 
   getReceiptDetails(id: string): Observable<ReceiptDetails | null> {
     return this.repo.getReceiptDetails(id).pipe(
-      map(res => {
-        if (!res.succeeded) {
-          throw new Error(res.errors?.join(', ') || 'Failed to fetch receipt');
-        }
-
-        return res.resultItem;
-      })
+      map(res => res.resultItem)
     );
   }
 
   deleteReceipt(id: string): Observable<boolean> {
     return this.repo.deleteReceipt(id).pipe(
-      map(res => {
-        if (!res.succeeded) {
-          throw new Error(res.errors?.join(', ') || 'Delete failed');
-        }
-
-        return res.resultItem ?? false;
-      })
+      map(res => res.resultItem ?? false)
     );
   }
 
   updateReceipt(command: UpdateReceiptCommand): Observable<boolean> {
     return this.repo.updateReceipt(command).pipe(
-      map(res => {
-        if (!res.succeeded) {
-          throw new Error(res.errors?.join(', ') || 'Update failed');
-        }
-
-        return res.resultItem ?? false;
-      })
+      map(res => res.resultItem ?? false)
     );
   }
 }
