@@ -8,5 +8,8 @@ public interface IReceiptsRepository
     Task<List<Receipt>> GetReceiptsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken);
     Task<Receipt> GetReceiptAsync(Guid id, CancellationToken cancellationToken);
     Task<bool> DeleteReceiptAsync(Guid id, CancellationToken cancellationToken);
-    Task<bool> UpdateReceiptAsync(Receipt receipt, CancellationToken cancellationToken);
+    Task<bool> UpdateReceiptAsync(Receipt receipt, 
+        IReadOnlyList<Guid> itemIdsToDelete, 
+        IReadOnlyList<ReceiptItem> itemsToAdd, 
+        CancellationToken cancellationToken);
 }

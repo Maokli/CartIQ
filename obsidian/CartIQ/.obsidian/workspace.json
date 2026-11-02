@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dashboard.md",
+                "file": "Epics/Foundation Hardening.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Dashboard"
+              "title": "Foundation Hardening"
             }
           }
         ]
@@ -41,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -186,20 +188,20 @@
   },
   "active": "d99481f9bd2bc81b",
   "lastOpenFiles": [
-    "Brainstorming V1.md",
     "Boards/Current Sprint.md",
     "Boards/Product Roadmap.md",
-    "Dashboard.md",
-    "Dashboard.md.tmp.11143.c4fca6af7406",
-    "Boards/Current Sprint.md.tmp.11143.bf6713340dc7",
-    "Epics/Microservices Extraction.md",
+    "Epics/Foundation Hardening.md",
     "Epics/Insights & Signals Dashboard.md",
     "Epics/Local LLM Receipt Parsing.md",
+    "Epics/Microservices Extraction.md",
     "Epics/Modular Monolith.md",
-    "Epics/Testing Pyramid.md",
     "Epics/Product Catalog & Open Food Facts.md",
     "Epics/Rich Domain Model.md",
-    "Epics/Foundation Hardening.md",
+    "Epics/Testing Pyramid.md",
+    "Dashboard.md",
+    "Brainstorming V1.md",
+    "Dashboard.md.tmp.11143.c4fca6af7406",
+    "Boards/Current Sprint.md.tmp.11143.bf6713340dc7",
     "Boards",
     "Boards/Untitled"
   ]
