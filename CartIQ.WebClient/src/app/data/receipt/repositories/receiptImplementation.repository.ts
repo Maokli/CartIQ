@@ -9,7 +9,7 @@ import { UpdateReceiptCommand } from '../../../domain/models/receipt/updateRecei
 
 @Injectable()
 export class ReceiptRepositoryImpl extends ReceiptRepository {
-  private readonly baseUrl = 'http://localhost:5200/api/Receipts';
+  private readonly receiptsEndpoint = "/Receipts";
 
   constructor(private http: HttpClient) {
     super();
@@ -20,18 +20,18 @@ export class ReceiptRepositoryImpl extends ReceiptRepository {
       .set('pageIndex', pageIndex)
       .set('pageSize', pageSize);
 
-    return this.http.get<ReceiptListResult>(this.baseUrl, { params });
+    return this.http.get<ReceiptListResult>(this.receiptsEndpoint, { params });
   }
 
   getReceiptDetails(id: string): Observable<ReceiptDetailsResult> {
-    return this.http.get<ReceiptDetailsResult>(`${this.baseUrl}/${id}`);
+    return this.http.get<ReceiptDetailsResult>(`${this.receiptsEndpoint}/${id}`);
   }
 
   deleteReceipt(id: string): Observable<BooleanResult> {
-    return this.http.delete<BooleanResult>(`${this.baseUrl}/${id}`);
+    return this.http.delete<BooleanResult>(`${this.receiptsEndpoint}/${id}`);
   }
 
   updateReceipt(command: UpdateReceiptCommand): Observable<BooleanResult> {
-    return this.http.patch<BooleanResult>(`${this.baseUrl}/Update`, command);
+    return this.http.patch<BooleanResult>(`${this.receiptsEndpoint}/Update`, command);
   }
 }
