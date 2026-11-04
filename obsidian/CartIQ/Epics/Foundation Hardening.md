@@ -26,7 +26,7 @@ Learn what separates a tutorial API from a production-grade one: pipeline-level 
 - [x] **Config hygiene** — CORS origins from config (not `AllowAnyOrigin`), delete leftover `WeatherForecast`, fix copy-pasted OpenAPI summary on Files endpoints, make the SQLite path relative.
 - [x] **Angular: register `provideHttpClient()`** — it's missing; `ReceiptRepositoryImpl` would throw NullInjectorError. *AC: receipts list loads against the running API.*
 - [x] **Angular: explicit `provideZonelessChangeDetection()`** in `app.config.ts` (currently implicit).
-- [ ] **Angular: environment-based API base URL** — replace hard-coded `http://localhost:5200` in `ReceiptRepositoryImpl` with an injected config/environment value.
+- [x] **Angular: environment-based API base URL** — replace hard-coded `http://localhost:5200` in `ReceiptRepositoryImpl` with an injected config/environment value.
 
 ## Definition of done
 
@@ -38,3 +38,9 @@ Upload → OCR (dummy) → receipt flow works with a real image file; every expe
 - [FluentValidation docs](https://docs.fluentvalidation.net/)
 - [MediatR pipeline behaviors wiki](https://github.com/jbogard/MediatR/wiki/Behaviors)
 - [Upload files in ASP.NET Core (learn.microsoft.com)](https://learn.microsoft.com/aspnet/core/mvc/models/file-uploads)
+
+## Retro
+
+- Learned: validation and logging can be centralized in MediatR pipeline behaviors.
+- Surprised: uploads were decoded as text, and OCR was awaited inline despite the background-processing comment.
+- Next time: exercise the full upload-to-receipt flow with real files before closing the phase.

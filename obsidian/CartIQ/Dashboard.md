@@ -13,8 +13,8 @@ Epic notes (learning goals, acceptance criteria, definition of done) live in `Ep
 
 | Phase | Epic | Status | Started | Closed |
 | --- | --- | --- | --- | --- |
-| 1 — Harden the Skeleton | [[Foundation Hardening]] | 🚧 In progress | 2026-07-19 | |
-| 2 — Receipt Pipeline + Local LLM | [[Local LLM Receipt Parsing]] | ⏳ Not started | | |
+| 1 — Harden the Skeleton | [[Foundation Hardening]] | ✅ Closed | 2026-07-19 | 2026-11-03 |
+| 2 — Receipt Pipeline + Local LLM | [[Local LLM Receipt Parsing]] | 🚧 In progress | 2026-11-03 | |
 | 3 — Rich Domain + Tests | [[Rich Domain Model]] · [[Testing Pyramid]] | ⏳ Not started | | |
 | 4 — Products & Open Food Facts | [[Product Catalog & Open Food Facts]] | ⏳ Not started | | |
 | 5 — Modular Monolith | [[Modular Monolith]] | ⏳ Not started | | |
@@ -28,7 +28,7 @@ Status legend: ⏳ Not started · 🚧 In progress · ✅ Closed
 
 ## 🎯 Active phase — exit criteria
 
-![[Foundation Hardening#Definition of done]]
+![[Local LLM Receipt Parsing#Definition of done]]
 
 ---
 
