@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddCors();
+builder.Services.AddHealthChecks();
 
 builder.AddInfrastructureServices();
 builder.AddApplicationServices();
@@ -32,6 +33,7 @@ app.UseCors(opt => app.ConfigureCors(opt));
 app.UseExceptionHandler(appError => { });
 
 app.MapEndpoints(typeof(Program).Assembly);
+app.MapHealthChecks("/health");
 
 app.Run();
 
