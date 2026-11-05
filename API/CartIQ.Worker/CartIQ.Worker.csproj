@@ -10,4 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CartIQ.Infrastructure\CartIQ.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>
