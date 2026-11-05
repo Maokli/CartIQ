@@ -2,9 +2,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CartIQ.WebApi\CartIQ.WebApi.csproj" />
+    <ProjectReference Include="..\CartIQ.Worker\CartIQ.Worker.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="13.6.4" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Ollama" Version="13.1.1" />
   </ItemGroup>
 
