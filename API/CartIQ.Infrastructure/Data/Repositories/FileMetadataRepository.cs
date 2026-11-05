@@ -22,12 +22,17 @@ public class FileMetadataRepository : IFileMetadataRepository
             Id = fileId,
             ContentType = contentType,
             FileName = fileName,
-            State = FileState.Uploaded
+            State = FileState.Uploaded,
+            CreatedBy = "louay", // TODO: Fix here
+            Created =  DateTime.UtcNow,
+            LastModifiedBy = "louay",
+            LastModified =  DateTime.UtcNow,
         };
+        
+        _dbContext.FileMetadatas.Add(metadataToAdd);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
-        var res = await _dbContext.FileMetadatas.AddAsync(metadataToAdd, cancellationToken);
-
-        return res.Entity;
+        return metadataToAdd;
     }
 
     public async Task<bool> UpdateFileState(Guid fileId, FileState state, CancellationToken cancellationToken)

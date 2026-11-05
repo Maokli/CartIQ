@@ -17,7 +17,11 @@ public class RawOcrResultsRepository : IRawOcrResultsRepository
         var rawOcrResultToAdd = new RawOcrResult()
         {
             Id = id,
-            Result = result
+            Result = result,
+            CreatedBy = "louay", // TODO: Fix here
+            Created =  DateTime.UtcNow,
+            LastModifiedBy = "louay",
+            LastModified =  DateTime.UtcNow,
         };
         
         var additionResult = await _dbContext.RawOcrResults.AddAsync(rawOcrResultToAdd, cancellationToken);
