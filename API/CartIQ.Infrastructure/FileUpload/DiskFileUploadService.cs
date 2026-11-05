@@ -1,5 +1,7 @@
 using System.IO.Pipelines;
 using CartIQ.Application.Files.Interfaces;
+using CartIQ.Infrastructure.FileUpload.Messaging;
+using MassTransit;
 using Microsoft.Extensions.Configuration;
 
 namespace CartIQ.Infrastructure.FileUpload;
@@ -8,11 +10,13 @@ public class DiskFileUploadService : IFileUploadService
 {
     private const string FileUploadSection = "FileUpload";
     private const string UploadDirKey = "UploadDir";
+    private readonly IPublishEndpoint _publishEndpoint;
     
     private readonly string? _uploadDir;
     
-    public DiskFileUploadService(IConfiguration configuration)
+    public DiskFileUploadService(IConfiguration configuration, IPublishEndpoint publishEndpoint)
     {
+        _publishEndpoint = publishEndpoint;
         _uploadDir = configuration.GetSection(FileUploadSection)[UploadDirKey];
 
         if (string.IsNullOrWhiteSpace(_uploadDir))
@@ -26,7 +30,7 @@ public class DiskFileUploadService : IFileUploadService
         }
     }
     
-    public Task<bool> DoUpload(string fileName, Stream fileContent)
+    public async Task<bool> DoUpload(string fileName, Stream fileContent)
     {
         var filePath = Path.Combine(_uploadDir, fileName);
         using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -34,6 +38,9 @@ public class DiskFileUploadService : IFileUploadService
             fileContent.CopyTo(fileStream);
         }
 
-        return Task.FromResult(true);
+        var fileUploaded = new FileUploaded(fileName);
+        await _publishEndpoint.Publish(fileUploaded);
+        
+        return true;
     }
 }

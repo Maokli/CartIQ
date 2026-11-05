@@ -14,6 +14,8 @@ builder.Services.AddHealthChecks();
 
 builder.AddInfrastructureServices();
 builder.AddApplicationServices();
+builder.AddMassTransitRabbitMq("message-broker");
+builder.Services.AddAntiforgery();
 
 var app = builder.Build();
 
@@ -32,6 +34,7 @@ app.UseHttpsRedirection();
 app.UseCors(opt => app.ConfigureCors(opt));
 app.UseExceptionHandler(appError => { });
 
+app.UseAntiforgery();
 app.MapEndpoints(typeof(Program).Assembly);
 app.MapHealthChecks("/health");
 
