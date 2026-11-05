@@ -23,6 +23,9 @@ public static class WebApplicationExtensions
             var routePrefix = type.GetProperty(nameof(IEndpointGroup.RoutePrefix))
                     ?.GetValue(null) as string ?? $"/api/{groupName}";
             var group = app.MapGroup(routePrefix).WithTags(groupName);
+            
+            // TODO: Setup proper anti forgery
+            group.DisableAntiforgery();
             type.GetMethod(nameof(IEndpointGroup.Map))!.Invoke(null, [group]);
         }
 
