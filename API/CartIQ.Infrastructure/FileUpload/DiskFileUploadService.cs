@@ -40,7 +40,7 @@ public class DiskFileUploadService : IFileUploadService
         return Task.FromResult(true);
     }
     
-    public async Task<Stream?> GetFile(
+    public async Task<Stream> GetFile(
         string fileName,
         CancellationToken cancellationToken)
     {
