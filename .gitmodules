@@ -1,0 +1,3 @@
+[submodule "API/external/mcp-ocr-api"]
+	path = API/external/mcp-ocr-api
+	url = https://github.com/21010/mcp-ocr-api.git
