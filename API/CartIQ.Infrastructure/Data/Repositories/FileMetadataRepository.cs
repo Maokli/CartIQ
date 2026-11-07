@@ -2,7 +2,7 @@ using Ardalis.GuardClauses;
 using CartIQ.Application.Files.Interfaces;
 using CartIQ.Domain.Entities;
 using CartIQ.Domain.Enums;
-using Microsoft.EntityFrameworkCore;
+using CartIQ.Infrastructure.Data.Repositories.Shared;
 
 namespace CartIQ.Infrastructure.Data.Repositories;
 
@@ -22,21 +22,23 @@ public class FileMetadataRepository : IFileMetadataRepository
             Id = fileId,
             ContentType = contentType,
             FileName = fileName,
-            State = FileState.Uploaded
+            State = FileState.Uploaded,
+            CreatedBy = "louay", // TODO: Fix here
+            Created =  DateTime.UtcNow,
+            LastModifiedBy = "louay",
+            LastModified =  DateTime.UtcNow,
         };
+        
+        _dbContext.FileMetadatas.Add(metadataToAdd);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
-        var res = await _dbContext.FileMetadatas.AddAsync(metadataToAdd, cancellationToken);
-
-        return res.Entity;
+        return metadataToAdd;
     }
 
     public async Task<bool> UpdateFileState(Guid fileId, FileState state, CancellationToken cancellationToken)
     {
-        var fileMetadata = await _dbContext.FileMetadatas.SingleOrDefaultAsync(x => x.Id == fileId, cancellationToken);
-
-        Guard.Against.NotFound(fileId, fileMetadata);
-
-        fileMetadata.State = state;
+        await _dbContext.UpdateFileStateAsync(fileId, state, cancellationToken);
         return await _dbContext.SaveChangesAsync(cancellationToken) > 0;
     }
+
 }

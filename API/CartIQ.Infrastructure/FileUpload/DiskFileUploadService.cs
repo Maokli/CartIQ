@@ -1,5 +1,8 @@
 using System.IO.Pipelines;
+using Ardalis.GuardClauses;
 using CartIQ.Application.Files.Interfaces;
+using CartIQ.Infrastructure.FileUpload.Messaging;
+using MassTransit;
 using Microsoft.Extensions.Configuration;
 
 namespace CartIQ.Infrastructure.FileUpload;
@@ -33,7 +36,26 @@ public class DiskFileUploadService : IFileUploadService
         {
             fileContent.CopyTo(fileStream);
         }
-
+        
         return Task.FromResult(true);
+    }
+    
+    public async Task<Stream?> GetFile(
+        string fileName,
+        CancellationToken cancellationToken)
+    {
+        var filePath = Path.Combine(_uploadDir, fileName);
+
+        if (!File.Exists(filePath))
+            throw new NotFoundException("File not found", filePath);
+
+        return await Task.FromResult<Stream>(
+            new FileStream(
+                filePath,
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.Read,
+                bufferSize: 81920,
+                useAsync: true));
     }
 }

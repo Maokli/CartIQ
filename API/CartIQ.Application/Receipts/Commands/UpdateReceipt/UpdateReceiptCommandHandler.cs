@@ -31,8 +31,9 @@ public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand,
             )
             .ToList();
 
-        var isSuccess = await _receiptsRepository.UpdateReceiptAsync(
-            receipt: new Receipt(id: request.Id, currency: request.Currency, merchant: request.Merchant),
+        var isSuccess = await _receiptsRepository.UpdateReceiptAsync(receiptId: request.Id, 
+            newCurrency: request.Currency, 
+            newMerchant: request.Merchant,
             itemIdsToDelete: itemIdsToDelete,
             itemsToAdd: itemsToAdd,
             cancellationToken: cancellationToken

@@ -13,5 +13,8 @@ public class ReceiptConfiguration : IEntityTypeConfiguration<Receipt>
             .HasForeignKey(i => i.ReceiptId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(r => r.FileMetadata)
+            .WithOne(fm => fm.Receipt)
+            .HasForeignKey<Receipt>(r => r.FileMetadataId);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using CartIQ.Application.Common.Interfaces;
 using CartIQ.Application.Files.Interfaces;
+using CartIQ.Application.Messaging;
 using CartIQ.Application.OCR.Interfaces;
 using CartIQ.Infrastructure.Data;
 using CartIQ.Infrastructure.Data.Repositories;
 using CartIQ.Infrastructure.FileUpload;
+using CartIQ.Infrastructure.Messaging;
 using CartIQ.Infrastructure.OCR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,11 +19,10 @@ public static class DependencyInjection
     public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
         // TODO: SELECT BASED ON RUNTIME CONFIG
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseSqlite(connectionString);
+            DatabaseConfiguration.Configure(options,  builder.Configuration);
         });
         
         builder.Services.AddScoped<ApplicationDbContextInitializer>();
@@ -31,5 +32,6 @@ public static class DependencyInjection
         builder.Services.AddScoped<IFileUploadService, DiskFileUploadService>();
         builder.Services.AddScoped<IFileMetadataRepository, FileMetadataRepository>();
         builder.Services.AddScoped<IRawOcrResultsRepository, RawOcrResultsRepository>();
+        builder.Services.AddScoped<IEventPublisher, EventPublisher>();
     }
 }
