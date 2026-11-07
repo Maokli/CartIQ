@@ -1,11 +1,20 @@
+using CartIQ.Application;
+using CartIQ.Infrastructure;
 using CartIQ.Infrastructure.FileUpload.Messaging;
-using CartIQ.Worker;
+using CartIQ.Infrastructure.OCR.Messaging;
 
 var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<Worker>();
+
 builder.AddMassTransitRabbitMq("message-broker", 
-    massTransitConfiguration: registration => registration.AddConsumer<FIleUploadedConsumer>()
+    massTransitConfiguration: registration =>
+    {
+        registration.AddConsumer<FIleUploadedEventConsumer>();
+        registration.AddConsumer<ReceiptCreatedEventConsumer>();
+    }
     );
+builder.AddInfrastructureServices();
+builder.AddApplicationServices();
+
 
 var host = builder.Build();
 host.Run();
