@@ -1,5 +1,6 @@
 using CartIQ.Application.Common.Models;
 using CartIQ.Application.Files.Interfaces;
+using CartIQ.Application.Messaging;
 using CartIQ.Application.OCR.Commands;
 using MediatR;
 
@@ -10,10 +11,13 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Resul
     private readonly IFileUploadService _fileUploadService;
     private readonly IFileMetadataRepository _fileMetadataRepository;
     private readonly ISender _mediator;
+    private readonly IEventPublisher _publisher;
     
     public UploadFileCommandHandler(IFileUploadService  fileUploadService, IFileMetadataRepository fileMetadataRepository, 
-        ISender mediator)
+        ISender mediator,
+        IEventPublisher publisher)
     {
+        _publisher = publisher;
         _fileUploadService = fileUploadService;
         _fileMetadataRepository = fileMetadataRepository;
         _mediator = mediator;
@@ -31,11 +35,9 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Resul
         // 2. Persist metadata DB record
         await _fileMetadataRepository.AddFileMetadata(fileId, request.ContentType, newFileName, cancellationToken);
         
-        // 3. Start OCR Task in background
-        var doOcrCommand = new DoOcrCommand(fileId, request.Content);
-        await _mediator.Send(doOcrCommand);
+        await _publisher.PublishFileUploadedEvent(fileId, cancellationToken);
         
-        // 4. Return success
+        // 3. Return success
         return Result<bool>.Success(uploadFileResult);
     }
 }

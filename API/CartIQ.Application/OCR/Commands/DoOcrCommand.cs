@@ -5,11 +5,11 @@ namespace CartIQ.Application.OCR.Commands;
 public class DoOcrCommand : IRequest
 {
     public Guid FileId { get; set; }
-    public MemoryStream FileContent { get; set; }
+    public Guid ReceiptId { get; set; }
 
-    public DoOcrCommand(Guid fileId, MemoryStream fileContent)
+    public DoOcrCommand(Guid fileId, Guid receiptId)
     {
         FileId = fileId;
-        FileContent = fileContent;
+        ReceiptId = receiptId;
     }
 }

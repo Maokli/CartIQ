@@ -1,6 +1,5 @@
 using CartIQ.Application.Common.Interfaces;
 using CartIQ.Application.Messaging;
-using CartIQ.Infrastructure.Data.Repositories;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
@@ -14,7 +13,7 @@ public class FIleUploadedEventConsumer : IConsumer<FileUploadedEvent>
     private readonly IReceiptsRepository _receiptsRepository;
     private readonly IEventPublisher _eventPublisher;
     public FIleUploadedEventConsumer(ILogger<FIleUploadedEventConsumer> logger, 
-        ReceiptsRepository receiptsRepository,
+        IReceiptsRepository receiptsRepository,
         IEventPublisher eventPublisher)
     {
         _logger = logger;
@@ -27,6 +26,7 @@ public class FIleUploadedEventConsumer : IConsumer<FileUploadedEvent>
         var message = context.Message;
         // 1- Create Empty Receipt
         var receipt = await _receiptsRepository.AddEmptyAsync(fileId: message.fileId, cancellationToken: context.CancellationToken);
+        _logger.LogInformation("Receipt added with Id: {receiptId}", receipt.Id);
         
         // 2- Publish receipt created Event
         await _eventPublisher.PublishReceiptCreatedEvent(receiptId: receipt.Id,

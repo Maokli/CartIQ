@@ -1,3 +1,4 @@
+using System.Text.Json;
 using CartIQ.Application.Files.Commands.UpdateState;
 using CartIQ.Application.OCR.Interfaces;
 using CartIQ.Domain.Enums;
@@ -23,14 +24,15 @@ public class DoOcrCommandHandler : IRequestHandler<DoOcrCommand>
         try
         {
             await _mediator.Send(new UpdateFileStateCommand(request.FileId, FileState.OcrStarted));
-            var ocrResult = await _ocrService.DoOcr(request.FileContent);
+            var ocrResult = await _ocrService.DoOcr(request.ReceiptId, cancellationToken);
             
-            await _rawOcrResultsRepository.AddRawOcrResult(request.FileId, ocrResult, cancellationToken);
-            await _mediator.Send(new UpdateFileStateCommand(request.FileId, FileState.OcrCompleted));
+            var rawOcrRsult = JsonSerializer.Serialize(ocrResult);
+            await _rawOcrResultsRepository.AddRawOcrResult(request.ReceiptId, rawOcrRsult, cancellationToken);
+            await _mediator.Send(new UpdateFileStateCommand(request.FileId, FileState.OcrCompleted), cancellationToken);
         }
         catch (Exception e)
         {
-            await _mediator.Send(new UpdateFileStateCommand(request.FileId, FileState.OcrError));
+            await _mediator.Send(new UpdateFileStateCommand(request.FileId, FileState.OcrError), cancellationToken);
             throw;
         }
     }
