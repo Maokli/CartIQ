@@ -158,6 +158,9 @@ namespace CartIQ.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("FileMetadataId")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("TEXT");
 
@@ -169,10 +172,13 @@ namespace CartIQ.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("RawOcrResultId")
+                    b.Property<Guid?>("RawOcrResultId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FileMetadataId")
+                        .IsUnique();
 
                     b.HasIndex("RawOcrResultId");
 
@@ -269,11 +275,17 @@ namespace CartIQ.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("CartIQ.Domain.Entities.Receipt", b =>
                 {
-                    b.HasOne("CartIQ.Domain.Entities.RawOcrResult", "RawOcrResult")
-                        .WithMany()
-                        .HasForeignKey("RawOcrResultId")
+                    b.HasOne("CartIQ.Domain.Entities.FileMetadata", "FileMetadata")
+                        .WithOne("Receipt")
+                        .HasForeignKey("CartIQ.Domain.Entities.Receipt", "FileMetadataId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("CartIQ.Domain.Entities.RawOcrResult", "RawOcrResult")
+                        .WithMany()
+                        .HasForeignKey("RawOcrResultId");
+
+                    b.Navigation("FileMetadata");
 
                     b.Navigation("RawOcrResult");
                 });
@@ -295,6 +307,12 @@ namespace CartIQ.Infrastructure.Data.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Receipt");
+                });
+
+            modelBuilder.Entity("CartIQ.Domain.Entities.FileMetadata", b =>
+                {
+                    b.Navigation("Receipt")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CartIQ.Domain.Entities.Receipt", b =>
