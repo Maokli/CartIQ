@@ -26,8 +26,7 @@ public class DoOcrCommandHandler : IRequestHandler<DoOcrCommand>
             await _mediator.Send(new UpdateFileStateCommand(request.FileId, FileState.OcrStarted));
             var ocrResult = await _ocrService.DoOcr(request.ReceiptId, cancellationToken);
             
-            var rawOcrRsult = JsonSerializer.Serialize(ocrResult);
-            await _rawOcrResultsRepository.AddRawOcrResult(request.ReceiptId, rawOcrRsult, cancellationToken);
+            await _rawOcrResultsRepository.AddRawOcrResult(request.ReceiptId, ocrResult, cancellationToken);
             await _mediator.Send(new UpdateFileStateCommand(request.FileId, FileState.OcrCompleted), cancellationToken);
         }
         catch (Exception e)

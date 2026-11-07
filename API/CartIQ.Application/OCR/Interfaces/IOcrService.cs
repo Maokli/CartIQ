@@ -4,5 +4,5 @@ namespace CartIQ.Application.OCR.Interfaces;
 
 public interface IOcrService
 {
-    Task<OcrResultDto> DoOcr(Guid receiptId, CancellationToken cancellationToken);
+    Task<string> DoOcr(Guid receiptId, CancellationToken cancellationToken);
 }
