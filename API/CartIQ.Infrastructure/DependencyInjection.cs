@@ -28,10 +28,16 @@ public static class DependencyInjection
         builder.Services.AddScoped<ApplicationDbContextInitializer>();
         builder.Services.AddScoped<IReceiptsRepository, ReceiptsRepository>();
         builder.Services.AddScoped<IReceiptItemsRepository, ReceiptItemsRepository>();
-        builder.Services.AddScoped<IOcrService, DummyOCRService>();
         builder.Services.AddScoped<IFileUploadService, DiskFileUploadService>();
         builder.Services.AddScoped<IFileMetadataRepository, FileMetadataRepository>();
         builder.Services.AddScoped<IRawOcrResultsRepository, RawOcrResultsRepository>();
         builder.Services.AddScoped<IEventPublisher, EventPublisher>();
+
+        // Http clients
+        builder.Services.AddHttpClient<IOcrService, McpOcrAPiOCRService>(client =>
+        {
+            client.BaseAddress = new Uri(
+                builder.Configuration["services:ocr:http:0"]!);
+        });
     }
 }

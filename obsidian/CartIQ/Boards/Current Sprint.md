@@ -17,11 +17,11 @@ kanban-plugin: board
 
 ## 🚧 In Progress
 
-- [ ] Real OCR: Tesseract behind IOcrService, delete DummyOCRService [[Local LLM Receipt Parsing]]
 
 
 ## ✅ Done
 
+- [ ] Real OCR: Tesseract behind IOcrService, delete DummyOCRService [[Local LLM Receipt Parsing]]
 - [ ] Drive FileState machine end-to-end, persisted per transition [[Local LLM Receipt Parsing]]
 - [ ] True background processing: Channel + BackgroundService [[Local LLM Receipt Parsing]]
 - [ ] docker-compose with Ollama (start of the local stack) [[Local LLM Receipt Parsing]]
