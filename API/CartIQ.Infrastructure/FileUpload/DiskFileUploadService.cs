@@ -1,4 +1,5 @@
 using System.IO.Pipelines;
+using Ardalis.GuardClauses;
 using CartIQ.Application.Files.Interfaces;
 using CartIQ.Infrastructure.FileUpload.Messaging;
 using MassTransit;
@@ -10,13 +11,11 @@ public class DiskFileUploadService : IFileUploadService
 {
     private const string FileUploadSection = "FileUpload";
     private const string UploadDirKey = "UploadDir";
-    private readonly IPublishEndpoint _publishEndpoint;
     
     private readonly string? _uploadDir;
     
-    public DiskFileUploadService(IConfiguration configuration, IPublishEndpoint publishEndpoint)
+    public DiskFileUploadService(IConfiguration configuration)
     {
-        _publishEndpoint = publishEndpoint;
         _uploadDir = configuration.GetSection(FileUploadSection)[UploadDirKey];
 
         if (string.IsNullOrWhiteSpace(_uploadDir))
@@ -30,17 +29,33 @@ public class DiskFileUploadService : IFileUploadService
         }
     }
     
-    public async Task<bool> DoUpload(string fileName, Stream fileContent)
+    public Task<bool> DoUpload(string fileName, Stream fileContent)
     {
         var filePath = Path.Combine(_uploadDir, fileName);
         using (var fileStream = new FileStream(filePath, FileMode.Create))
         {
             fileContent.CopyTo(fileStream);
         }
-
-        var fileUploaded = new FileUploaded(fileName);
-        await _publishEndpoint.Publish(fileUploaded);
         
-        return true;
+        return Task.FromResult(true);
+    }
+    
+    public async Task<Stream?> GetFile(
+        string fileName,
+        CancellationToken cancellationToken)
+    {
+        var filePath = Path.Combine(_uploadDir, fileName);
+
+        if (!File.Exists(filePath))
+            throw new NotFoundException("File not found", filePath);
+
+        return await Task.FromResult<Stream>(
+            new FileStream(
+                filePath,
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.Read,
+                bufferSize: 81920,
+                useAsync: true));
     }
 }
