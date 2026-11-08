@@ -1,6 +1,8 @@
 using System.Reflection;
 using CartIQ.Application.Common.Behaviors;
 using CartIQ.Application.Files;
+using CartIQ.Application.ReceiptClassification;
+using CartIQ.Application.ReceiptClassification.Interfaces;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,5 +27,7 @@ public static class DependencyInjection
                 .AddOpenBehavior(typeof(ValidationBehavior<,>))
                 .AddOpenBehavior(typeof(UnhandledExceptionBehavior<,>))
                 .AddOpenBehavior(typeof(LoggingBehavior<,>)));
+
+        builder.Services.AddScoped<IReceiptClassificationService, OllamaReceiptClassificationService>();
     }
 }
