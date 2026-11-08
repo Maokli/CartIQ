@@ -22,6 +22,7 @@ public class McpOcrAPiOCRService : IOcrService
         logger.LogInformation("Http client created with base address {baseAddress}",  httpClient.BaseAddress);
     }
     
+    // TODO: I feel like this too much business logic to be in infrastructure, Make a decision here
     public async Task<string> DoOcr(Guid receiptId, CancellationToken cancellationToken)
     {
         var receipt = await _receiptsRepository.GetReceiptAsync(receiptId, cancellationToken);
