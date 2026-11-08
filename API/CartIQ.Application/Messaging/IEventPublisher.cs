@@ -4,4 +4,5 @@ public interface IEventPublisher
 {
     Task PublishFileUploadedEvent(Guid fileId, CancellationToken cancellationToken);
     Task PublishReceiptCreatedEvent(Guid receiptId, Guid fileId, CancellationToken cancellationToken);
+    Task PublishOcrCompletedEvent(Guid receiptId, Guid fileId, CancellationToken cancellationToken);
 }

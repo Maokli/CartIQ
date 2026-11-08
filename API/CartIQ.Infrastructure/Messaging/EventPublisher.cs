@@ -1,5 +1,6 @@
 using CartIQ.Application.Messaging;
 using CartIQ.Infrastructure.FileUpload.Messaging;
+using CartIQ.Infrastructure.OCR.Messaging;
 using MassTransit;
 
 namespace CartIQ.Infrastructure.Messaging;
@@ -11,4 +12,7 @@ public class EventPublisher(IPublishEndpoint publishEndpoint) : IEventPublisher
 
     public async Task PublishReceiptCreatedEvent(Guid receiptId, Guid fileId, CancellationToken cancellationToken) =>
         await publishEndpoint.Publish(new ReceiptCreatedEvent(receiptId, fileId));
+    
+    public async Task PublishOcrCompletedEvent(Guid receiptId, Guid fileId, CancellationToken cancellationToken) =>
+        await publishEndpoint.Publish(new OcrCompletedEvent(receiptId, fileId));
 }
