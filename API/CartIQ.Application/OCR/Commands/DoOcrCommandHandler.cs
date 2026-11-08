@@ -1,5 +1,6 @@
 using System.Text.Json;
 using CartIQ.Application.Files.Commands.UpdateState;
+using CartIQ.Application.Messaging;
 using CartIQ.Application.OCR.Interfaces;
 using CartIQ.Domain.Enums;
 using MediatR;
@@ -12,7 +13,9 @@ public class DoOcrCommandHandler : IRequestHandler<DoOcrCommand>
     private IRawOcrResultsRepository _rawOcrResultsRepository;
     private ISender _mediator;
     
-    public DoOcrCommandHandler(IOcrService ocrService, IRawOcrResultsRepository rawOcrResultsRepository, ISender mediator)
+    public DoOcrCommandHandler(IOcrService ocrService, 
+        IRawOcrResultsRepository rawOcrResultsRepository, 
+        ISender mediator)
     {
         _ocrService = ocrService;    
         _rawOcrResultsRepository = rawOcrResultsRepository;
