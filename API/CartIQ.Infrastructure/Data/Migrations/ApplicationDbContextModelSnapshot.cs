@@ -199,7 +199,7 @@ namespace CartIQ.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProductName")
@@ -293,9 +293,7 @@ namespace CartIQ.Infrastructure.Data.Migrations
                 {
                     b.HasOne("CartIQ.Domain.Entities.Products.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.HasOne("CartIQ.Domain.Entities.Receipt", "Receipt")
                         .WithMany("Items")
