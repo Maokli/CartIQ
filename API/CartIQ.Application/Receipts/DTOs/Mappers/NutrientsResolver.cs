@@ -27,8 +27,10 @@ public class NutrientsResolver : IValueResolver<Receipt, ReceiptDto, NutrientsDt
         double totalProtein = 0;
         double totalEnergy = 0;
         
-        foreach (var nutritionFact in items.Select(item => item.Product.Nutrition))
+        foreach (var nutritionFact in items.Select(item => item.Product?.Nutrition))
         {
+            if (nutritionFact is null) continue;
+            
             totalCarbs += nutritionFact.CarbohydratesPer100g ?? 0;
             totalFat += nutritionFact.FatPer100g ?? 0;
             totalProtein += nutritionFact.ProteinsPer100g ?? 0;
