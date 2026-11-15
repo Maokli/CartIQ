@@ -14,11 +14,12 @@ kanban-plugin: board
 
 ## 🚧 In Progress
 
-- [ ] Store parsed receipt + items from LLM output [[Local LLM Receipt Parsing]]
+- [ ] Persist & make sure receipt state is propagated correctly
 
 
 ## ✅ Done
 
+- [ ] Store parsed receipt + items from LLM output [[Local LLM Receipt Parsing]]
 - [ ] Handle garbage LLM output: retry once, then OcrError + manual review [[Local LLM Receipt Parsing]]
 - [ ] LLM parsing service: OCR text → structured items via Microsoft.Extensions.AI [[Local LLM Receipt Parsing]]
 - [ ] Real OCR: Tesseract behind IOcrService, delete DummyOCRService [[Local LLM Receipt Parsing]]
