@@ -6,7 +6,6 @@ kanban-plugin: board
 
 ## 📥 To Do
 
-- [ ] Prompt as versioned file (incl. filter rules: totals, VAT, deposit lines) [[Local LLM Receipt Parsing]]
 - [ ] Angular: upload UI (drag-drop, progress) [[Local LLM Receipt Parsing]]
 - [ ] Angular: processing status via polling resource() (stretch: SSE) [[Local LLM Receipt Parsing]]
 - [ ] Angular: manual correction UI (edit names, delete wrong items) [[Local LLM Receipt Parsing]]
@@ -14,11 +13,13 @@ kanban-plugin: board
 
 ## 🚧 In Progress
 
-- [ ] Persist & make sure receipt state is propagated correctly
 
 
 ## ✅ Done
 
+- [ ] Prompt as versioned file (incl. filter rules: totals, VAT, deposit lines) [[Local LLM Receipt Parsing]]
+- [ ] Add cheap SSE for real time receipt State
+- [ ] Persist & make sure receipt state is propagated correctly
 - [ ] Store parsed receipt + items from LLM output [[Local LLM Receipt Parsing]]
 - [ ] Handle garbage LLM output: retry once, then OcrError + manual review [[Local LLM Receipt Parsing]]
 - [ ] LLM parsing service: OCR text → structured items via Microsoft.Extensions.AI [[Local LLM Receipt Parsing]]
