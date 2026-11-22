@@ -1,11 +1,11 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var ollama =
-    builder.AddOllama("ollama")
-        .WithImageTag("latest")
-        .WithDataVolume()
-        .WithOpenWebUI();
-var llm = ollama.AddModel("llm", "gemma3:4b");
+// var ollama =
+//     builder.AddOllama("ollama")
+//         .WithImageTag("latest")
+//         .WithDataVolume()
+//         .WithOpenWebUI();
+// var llm = ollama.AddModel("llm", "gemma3:4b");
 
 var messageBroker = builder.AddRabbitMQ("message-broker")
     .WithDataVolume();
@@ -21,10 +21,10 @@ var ocrService = builder.AddDockerfile(
 var workerService = builder.AddProject<Projects.CartIQ_Worker>("worker")
     .WithReference(messageBroker)
     .WithReference(ocrService.GetEndpoint("http"))
-    .WithReference(llm)
+    //.WithReference(llm)
     .WaitFor(messageBroker)
-    .WaitFor(ocrService)
-    .WaitFor(llm);
+    .WaitFor(ocrService);
+    //.WaitFor(llm);
 
 var apiService = builder.AddProject<Projects.CartIQ_WebApi>("api")
     .WithHttpHealthCheck("/health")
