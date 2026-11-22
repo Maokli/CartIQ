@@ -28,6 +28,7 @@ public static class DependencyInjection
                 .AddOpenBehavior(typeof(UnhandledExceptionBehavior<,>))
                 .AddOpenBehavior(typeof(LoggingBehavior<,>)));
 
-        builder.Services.AddScoped<IReceiptClassificationService, OllamaReceiptClassificationService>();
+        //builder.Services.AddScoped<IReceiptClassificationService, OllamaReceiptClassificationService>();
+        builder.Services.AddScoped<IReceiptClassificationService, FakeReceiptClassificationService>();
     }
 }
