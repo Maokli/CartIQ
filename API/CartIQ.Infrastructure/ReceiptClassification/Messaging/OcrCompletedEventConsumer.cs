@@ -1,7 +1,9 @@
+using CartIQ.Application.Files.Commands.UpdateState;
 using CartIQ.Application.ReceiptClassification.Commands.ClassifyReceipt;
 using CartIQ.Application.ReceiptClassification.DTOs;
 using CartIQ.Application.Receipts.Commands.UpdateReceipt;
 using CartIQ.Application.Receipts.DTOs;
+using CartIQ.Domain.Enums;
 using CartIQ.Infrastructure.FileUpload.Messaging;
 using CartIQ.Infrastructure.OCR.Messaging;
 using MassTransit;
@@ -30,9 +32,9 @@ public class OcrCompletedEventConsumer : IConsumer<OcrCompletedEvent>
         var classificationResult = await _sender.Send(classifyReceiptCommand, context.CancellationToken);
         
         // 2- Persist classification result
-        // TODO: Update state also
         var updateReceiptCommand = GetUpdateReceiptCommand(context.Message.ReceiptId, classificationResult);
         await _sender.Send(updateReceiptCommand, context.CancellationToken);
+        await _sender.Send(new UpdateFileStateCommand(context.Message.FileId, FileState.OcrCompleted), context.CancellationToken);
     }
 
     private UpdateReceiptCommand GetUpdateReceiptCommand(Guid receiptId, ClassificationResultDto classificationResult)
