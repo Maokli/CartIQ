@@ -6,7 +6,7 @@ using MediatR;
 
 namespace CartIQ.Application.Files.Commands.UploadFile;
 
-public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Result<bool>>
+public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Result<Guid>>
 {
     private readonly IFileUploadService _fileUploadService;
     private readonly IFileMetadataRepository _fileMetadataRepository;
@@ -23,13 +23,15 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Resul
         _mediator = mediator;
     }
     
-    public async Task<Result<bool>> Handle(UploadFileCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(UploadFileCommand request, CancellationToken cancellationToken)
     {
         var fileId = Guid.NewGuid();
         var fileExtension = Path.GetExtension(request.FileName);
         var newFileName = $"{fileId}{fileExtension}";
+        await _publisher.PublishReceiptProcessingPendingEvent(fileId, fileId, cancellationToken);
         
         // 1. Upload file to store
+        await _publisher.PublishReceiptProcessingUploadingEvent(fileId, fileId, cancellationToken);
         var uploadFileResult = await _fileUploadService.DoUpload(newFileName, request.Content);
         
         // 2. Persist metadata DB record
@@ -38,6 +40,6 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Resul
         await _publisher.PublishFileUploadedEvent(fileId, cancellationToken);
         
         // 3. Return success
-        return Result<bool>.Success(uploadFileResult);
+        return Result<Guid>.Success(fileId);
     }
 }

@@ -16,5 +16,8 @@ public class ReceiptConfiguration : IEntityTypeConfiguration<Receipt>
         builder.HasOne(r => r.FileMetadata)
             .WithOne(fm => fm.Receipt)
             .HasForeignKey<Receipt>(r => r.FileMetadataId);
+        builder.HasOne(r => r.RawOcrResult)
+            .WithOne(r => r.Receipt)
+            .HasForeignKey<RawOcrResult>(result => result.Id);
     }
 }

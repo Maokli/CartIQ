@@ -2,7 +2,7 @@ using CartIQ.Application.Common.Models;
 using MediatR;
 namespace CartIQ.Application.Files.Commands.UploadFile;
 
-public class UploadFileCommand  : IRequest<Result<bool>>
+public class UploadFileCommand  : IRequest<Result<Guid>>
 {
     private byte[] _fileContent { get; }
     public MemoryStream Content => new MemoryStream(_fileContent, writable: false);

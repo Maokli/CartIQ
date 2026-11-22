@@ -4,19 +4,19 @@ using CartIQ.Application.Common.Models;
 using CartIQ.Application.Receipts.DTOs;
 using CartIQ.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CartIQ.Application.Receipts.Commands.UpdateReceipt;
 
 public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand, Result<bool>>
 {
     private readonly IReceiptsRepository _receiptsRepository;
-    private readonly IReceiptItemsRepository _receiptItemsRepository;
-    private readonly IMapper _mapper;
-    public UpdateReceiptCommandHandler(IReceiptsRepository  receiptsRepository, IReceiptItemsRepository  receiptItemsRepository,  IMapper mapper)
+    private readonly ILogger<UpdateReceiptCommandHandler> _logger;
+    public UpdateReceiptCommandHandler(IReceiptsRepository  receiptsRepository,
+        ILogger<UpdateReceiptCommandHandler> logger)
     {
         _receiptsRepository = receiptsRepository;
-        _receiptItemsRepository = receiptItemsRepository;
-        _mapper = mapper;
+        _logger = logger;
     }
     
     public async Task<Result<bool>> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
@@ -28,9 +28,19 @@ public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand,
                     productName: i.ProductName,
                     productPrice: i.ProductPrice
                 )
+                {
+                    // TODO: fix ugly meess
+                    CreatedBy = "louay",
+                    Created =  DateTime.UtcNow,
+                    LastModifiedBy = "louay",
+                    LastModified =  DateTime.UtcNow,
+                }
             )
             .ToList();
-
+        
+        _logger.LogInformation($"Updating receipt {request.Id}");
+        _logger.LogDebug($"Updating receipt {request}");
+        
         var isSuccess = await _receiptsRepository.UpdateReceiptAsync(receiptId: request.Id, 
             newCurrency: request.Currency, 
             newMerchant: request.Merchant,

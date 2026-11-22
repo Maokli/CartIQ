@@ -13,7 +13,8 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Merchant, opt => opt.MapFrom<MerchantResolver>())
             .ForMember(dest => dest.Nutrients, opt => opt.MapFrom<NutrientsResolver>())
             .ForMember(dest => dest.TopItems, opt => opt.MapFrom<TopItemsResolver>())
-            .ForMember(dest => dest.Category, opt => opt.MapFrom<CategoryResolver>());
+            .ForMember(dest => dest.Category, opt => opt.MapFrom<CategoryResolver>())
+            .ForMember(dest => dest.File, opt => opt.MapFrom<FileMetadataResolver>());
         CreateMap<ReceiptItem, ReceiptItemDto>();
         CreateMap<Receipt, ReceiptDetailsDto>()
             .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));

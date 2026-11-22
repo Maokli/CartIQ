@@ -21,14 +21,14 @@ Learn to run and integrate a **local LLM** as an application component: model se
 
 ## Tasks
 
-- [ ] **docker-compose with Ollama** — first `docker-compose.yml` at repo root; Ollama service with a volume for models. *AC: `docker compose up` + `curl localhost:11434` works.*
-- [ ] **Pick and document the model** — try a small instruct model with reliable JSON output (qwen3 / llama3.x class, quantized). Write a short note comparing 2 candidates on 3 sample receipts (accuracy, latency, RAM). *AC: decision note committed in obsidian.*
-- [ ] **Real OCR behind `IOcrService`** — Tesseract (e.g. TesseractOCR nuget or a sidecar container) replaces `DummyOCRService`. *AC: a photographed receipt yields recognizable raw text; `DummyOCRService` deleted or kept only for tests.*
+- [x] **docker-compose with Ollama** — first `docker-compose.yml` at repo root; Ollama service with a volume for models. *AC: `docker compose up` + `curl localhost:11434` works.*
+- [x] **Pick and document the model** — try a small instruct model with reliable JSON output (qwen3 / llama3.x class, quantized). Write a short note comparing 2 candidates on 3 sample receipts (accuracy, latency, RAM). *AC: decision note committed in obsidian.*
+- [x] **Real OCR behind `IOcrService`** — Tesseract (e.g. TesseractOCR nuget or a sidecar container) replaces `DummyOCRService`. *AC: a photographed receipt yields recognizable raw text; `DummyOCRService` deleted or kept only for tests.*
 - [ ] **LLM parsing service** — `IReceiptParser` in Application, implementation in Infrastructure using `Microsoft.Extensions.AI` against Ollama. Input: raw OCR text. Output: structured items `{name, quantity, unitPrice, lineTotal}` + merchant + date, validated against a JSON schema. *AC: 3 sample receipts parse into correct structured items.*
 - [ ] **Prompt as a versioned artifact** — prompt template lives in a file in the repo, not inline string. Filter rules (skip totals, VAT, deposit lines) live in the prompt.
-- [ ] **Handle garbage output** — schema-validation failure ⇒ one retry with error feedback, then `FileState.OcrError` + "needs manual review". *AC: feeding lorem-ipsum text ends in error state, not an exception.*
-- [ ] **True background processing** — `Channel<FileId>` + `BackgroundService` worker; `UploadFileCommandHandler` enqueues and returns immediately (today it awaits OCR inline despite the "background" comment). *AC: upload endpoint responds < 500ms while processing continues.*
-- [ ] **State machine end-to-end** — `Uploaded → OcrStarted → OcrCompleted → ReceiptCreated | OcrError`, each transition persisted. (Guarding transitions inside the entity is [[Rich Domain Model]] work.)
+- [x] **Handle garbage output** — schema-validation failure ⇒ one retry with error feedback, then `FileState.OcrError` + "needs manual review". *AC: feeding lorem-ipsum text ends in error state, not an exception.*
+- [x] **True background processing** — `Channel<FileId>` + `BackgroundService` worker; `UploadFileCommandHandler` enqueues and returns immediately (today it awaits OCR inline despite the "background" comment). *AC: upload endpoint responds < 500ms while processing continues.*
+- [x] **State machine end-to-end** — `Uploaded → OcrStarted → OcrCompleted → ReceiptCreated | OcrError`, each transition persisted. (Guarding transitions inside the entity is [[Rich Domain Model]] work.)
 - [ ] **Angular: upload UI** — file picker + drag-drop, spartan/ui, upload progress. *AC: user uploads a photo and sees it accepted.*
 - [ ] **Angular: processing status** — poll file state with a signal `resource()` until terminal state; show state timeline. Stretch: SSE instead of polling.
 - [ ] **Angular: manual correction UI** — review parsed items before/after receipt creation: edit name/qty/price, delete wrong lines. *AC: corrected items persist via UpdateReceipt.*

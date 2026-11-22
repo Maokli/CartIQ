@@ -7,10 +7,10 @@ using CartIQ.Infrastructure.Data.Repositories;
 using CartIQ.Infrastructure.FileUpload;
 using CartIQ.Infrastructure.Messaging;
 using CartIQ.Infrastructure.OCR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using CartIQ.Infrastructure.Realtime.ReceiptStatus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OllamaSharp;
 
 namespace CartIQ.Infrastructure;
 
@@ -28,10 +28,43 @@ public static class DependencyInjection
         builder.Services.AddScoped<ApplicationDbContextInitializer>();
         builder.Services.AddScoped<IReceiptsRepository, ReceiptsRepository>();
         builder.Services.AddScoped<IReceiptItemsRepository, ReceiptItemsRepository>();
-        builder.Services.AddScoped<IOcrService, DummyOCRService>();
         builder.Services.AddScoped<IFileUploadService, DiskFileUploadService>();
         builder.Services.AddScoped<IFileMetadataRepository, FileMetadataRepository>();
         builder.Services.AddScoped<IRawOcrResultsRepository, RawOcrResultsRepository>();
         builder.Services.AddScoped<IEventPublisher, EventPublisher>();
+
+        // Http clients
+        builder.Services.ConfigureHttpClientDefaults(http =>
+        {
+            http.ConfigureHttpClient(client =>
+            {
+                client.Timeout = TimeSpan.FromMinutes(10);
+            });
+        });
+        builder.Services.AddHttpClient<IOcrService, McpOcrAPiOCRService>(client =>
+        {
+            client.BaseAddress = new Uri(
+                builder.Configuration["services:ocr:http:0"]!);
+        });
+        builder.AddOllamaApiClient("llm");
+        
+        builder.Services.AddChatClient((services) =>
+        {
+            var ollamaApiClient = (OllamaApiClient)services.GetRequiredService<IOllamaApiClient>();
+            
+            return ollamaApiClient;
+        });
+    }
+    /// <summary>
+    /// Registers services that belong only to the presentation layer.
+    /// </summary>
+    public static void AddRealtimeSpecificInfrastructureServices(this IHostApplicationBuilder builder)
+    {
+        builder.AddMassTransitRabbitMq("message-broker", 
+            massTransitConfiguration: registration =>
+            {
+                registration.AddConsumer<ReceiptProcessingEventConsumer>();
+            }
+        );
     }
 }

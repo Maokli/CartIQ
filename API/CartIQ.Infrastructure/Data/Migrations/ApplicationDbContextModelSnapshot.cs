@@ -115,7 +115,6 @@ namespace CartIQ.Infrastructure.Data.Migrations
             modelBuilder.Entity("CartIQ.Domain.Entities.RawOcrResult", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset>("Created")
@@ -172,15 +171,10 @@ namespace CartIQ.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("RawOcrResultId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FileMetadataId")
                         .IsUnique();
-
-                    b.HasIndex("RawOcrResultId");
 
                     b.ToTable("Receipts");
                 });
@@ -205,7 +199,7 @@ namespace CartIQ.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProductName")
@@ -273,6 +267,17 @@ namespace CartIQ.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CartIQ.Domain.Entities.RawOcrResult", b =>
+                {
+                    b.HasOne("CartIQ.Domain.Entities.Receipt", "Receipt")
+                        .WithOne("RawOcrResult")
+                        .HasForeignKey("CartIQ.Domain.Entities.RawOcrResult", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Receipt");
+                });
+
             modelBuilder.Entity("CartIQ.Domain.Entities.Receipt", b =>
                 {
                     b.HasOne("CartIQ.Domain.Entities.FileMetadata", "FileMetadata")
@@ -281,22 +286,14 @@ namespace CartIQ.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CartIQ.Domain.Entities.RawOcrResult", "RawOcrResult")
-                        .WithMany()
-                        .HasForeignKey("RawOcrResultId");
-
                     b.Navigation("FileMetadata");
-
-                    b.Navigation("RawOcrResult");
                 });
 
             modelBuilder.Entity("CartIQ.Domain.Entities.ReceiptItem", b =>
                 {
                     b.HasOne("CartIQ.Domain.Entities.Products.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.HasOne("CartIQ.Domain.Entities.Receipt", "Receipt")
                         .WithMany("Items")
@@ -318,6 +315,8 @@ namespace CartIQ.Infrastructure.Data.Migrations
             modelBuilder.Entity("CartIQ.Domain.Entities.Receipt", b =>
                 {
                     b.Navigation("Items");
+
+                    b.Navigation("RawOcrResult");
                 });
 #pragma warning restore 612, 618
         }

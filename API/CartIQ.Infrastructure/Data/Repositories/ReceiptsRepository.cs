@@ -44,6 +44,7 @@ public class ReceiptsRepository : IReceiptsRepository
         return _dbContext.Receipts
             .Skip(pageIndex*pageSize)
             .Take(pageSize)
+            .Include(i => i.FileMetadata)
             .Include(r => r.Items)
             .ThenInclude(i => i.Product)
             .ToListAsync(cancellationToken);
@@ -51,9 +52,11 @@ public class ReceiptsRepository : IReceiptsRepository
 
     public async Task<Receipt> GetReceiptAsync(Guid id, CancellationToken cancellationToken)
     {
+        // TODO: breakdown to builder patter, GetReceipts.With...().With....()
         var receipt = await _dbContext.Receipts
             .Include(r => r.Items)
             .Include(r => r.FileMetadata)
+            .Include(r => r.RawOcrResult)
             .FirstOrDefaultAsync(receipt => receipt.Id == id, cancellationToken);
         
         Guard.Against.NotFound(id, receipt);

@@ -1,4 +1,4 @@
-using Ardalis.GuardClauses;
+using System.Text.Json;
 using CartIQ.Application.Common.Interfaces;
 using CartIQ.Application.Files.Interfaces;
 using CartIQ.Application.OCR.Interfaces;
@@ -19,14 +19,16 @@ public class DummyOCRService : IOcrService
         _receiptsRepository = receiptsRepository;
     }
     
-    public async Task<OcrResultDto> DoOcr(Guid receiptId, CancellationToken cancellationToken)
+    public async Task<string> DoOcr(Guid receiptId, CancellationToken cancellationToken)
     {
         var receipt = await _receiptsRepository.GetReceiptAsync(receiptId, cancellationToken);
         var fileName = receipt.FileMetadata.FileName;
         var file = await _fileUploadService.GetFile(fileName, cancellationToken);
         
         Thread.Sleep(500);
-        return GetFakeOcrResult();
+        var result = GetFakeOcrResult();
+        
+        return JsonSerializer.Serialize(result);
     }
     
     private OcrResultDto GetFakeOcrResult()

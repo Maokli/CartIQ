@@ -17,7 +17,7 @@ public class Receipt : BaseAuditableEntity
 
     public Receipt(Guid fileMetadataId)
     {
-        Id = Guid.NewGuid();
+        Id = fileMetadataId;
         Merchant = string.Empty;
         Currency = string.Empty;
         FileMetadataId = fileMetadataId;
