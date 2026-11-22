@@ -14,8 +14,12 @@ builder.Services.AddHealthChecks();
 
 builder.AddInfrastructureServices();
 builder.AddApplicationServices();
-builder.AddMassTransitRabbitMq("message-broker");
+
+builder.AddRealtimeSpecificApplicationServices();
+builder.AddRealtimeSpecificInfrastructureServices();
+
 builder.Services.AddAntiforgery();
+
 
 var app = builder.Build();
 

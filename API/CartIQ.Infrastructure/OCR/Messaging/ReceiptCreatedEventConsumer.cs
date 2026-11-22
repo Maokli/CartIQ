@@ -24,9 +24,11 @@ public class ReceiptCreatedEventConsumer : IConsumer<ReceiptCreatedEvent>
         var doOcrCommand = new DoOcrCommand(message.FileId, message.ReceiptId);
         
         // 1- Start OCR
+        await _eventPublisher.PublishReceiptProcessingOcrProcessingEvent(message.ReceiptId, message.ReceiptId, context.CancellationToken);
         await _mediator.Send(doOcrCommand, context.CancellationToken);
         
         // 2- Publish OCRCompleted Event
+        await _eventPublisher.PublishReceiptProcessingOcrCompletedEvent(message.ReceiptId, message.ReceiptId, context.CancellationToken);
         await _eventPublisher.PublishOcrCompletedEvent(message.ReceiptId, message.FileId, context.CancellationToken);
     }
 }

@@ -17,7 +17,7 @@ public class Files : IEndpointGroup
     
     [EndpointSummary("Update receipt.")]
     [EndpointDescription("Updates a receipt with a given Id.")]
-    public static async Task<Results<BadRequest, NoContent>> UploadFile(ISender sender, [FromForm]IFormFile file , CancellationToken cancellationToken)
+    public static async Task<Results<BadRequest, Ok<Result<Guid>>>> UploadFile(ISender sender, [FromForm]IFormFile file , CancellationToken cancellationToken)
     {
         byte[] fileContent = null;
         using (var ms = new MemoryStream())
@@ -32,9 +32,6 @@ public class Files : IEndpointGroup
             sizeInBytes: file.Length);
         var result = await sender.Send(command, cancellationToken);
         
-        if(!result.ResultItem)
-            return TypedResults.BadRequest();
-        
-        return TypedResults.NoContent();
+        return TypedResults.Ok(result);
     }
 }

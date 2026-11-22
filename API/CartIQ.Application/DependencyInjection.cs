@@ -1,6 +1,8 @@
 using System.Reflection;
 using CartIQ.Application.Common.Behaviors;
 using CartIQ.Application.Files;
+using CartIQ.Application.Realtime.ReceiptState;
+using CartIQ.Application.Realtime.ReceiptState.Interfaces;
 using CartIQ.Application.ReceiptClassification;
 using CartIQ.Application.ReceiptClassification.Interfaces;
 using FluentValidation;
@@ -30,5 +32,13 @@ public static class DependencyInjection
 
         //builder.Services.AddScoped<IReceiptClassificationService, OllamaReceiptClassificationService>();
         builder.Services.AddScoped<IReceiptClassificationService, FakeReceiptClassificationService>();
+    }
+    
+    /// <summary>
+    /// Registers services that belong only to the presentation layer.
+    /// </summary>
+    public static void AddRealtimeSpecificApplicationServices(this IHostApplicationBuilder builder)
+    {
+        builder.Services.AddSingleton<ISubscriptionManager, SubscriptionManager>();
     }
 }

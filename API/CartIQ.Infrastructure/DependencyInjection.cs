@@ -7,8 +7,7 @@ using CartIQ.Infrastructure.Data.Repositories;
 using CartIQ.Infrastructure.FileUpload;
 using CartIQ.Infrastructure.Messaging;
 using CartIQ.Infrastructure.OCR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using CartIQ.Infrastructure.Realtime.ReceiptStatus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OllamaSharp;
@@ -55,5 +54,17 @@ public static class DependencyInjection
             
             return ollamaApiClient;
         });
+    }
+    /// <summary>
+    /// Registers services that belong only to the presentation layer.
+    /// </summary>
+    public static void AddRealtimeSpecificInfrastructureServices(this IHostApplicationBuilder builder)
+    {
+        builder.AddMassTransitRabbitMq("message-broker", 
+            massTransitConfiguration: registration =>
+            {
+                registration.AddConsumer<ReceiptProcessingEventConsumer>();
+            }
+        );
     }
 }
