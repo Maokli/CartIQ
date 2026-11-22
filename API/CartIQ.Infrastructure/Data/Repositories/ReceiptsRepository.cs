@@ -44,6 +44,7 @@ public class ReceiptsRepository : IReceiptsRepository
         return _dbContext.Receipts
             .Skip(pageIndex*pageSize)
             .Take(pageSize)
+            .Include(i => i.FileMetadata)
             .Include(r => r.Items)
             .ThenInclude(i => i.Product)
             .ToListAsync(cancellationToken);
